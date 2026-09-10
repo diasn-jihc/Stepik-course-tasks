@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyFirstApp());
 
 class MyFirstApp extends StatefulWidget {
+  const MyFirstApp({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _MyFirstAppState();
