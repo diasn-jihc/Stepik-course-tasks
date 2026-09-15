@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
           centerTitle: true,
         ),
         body: Padding(
-          padding: EdgeInsets.only(left: 50, top: 60),
+          padding: EdgeInsets.only(left: 80, top: 100),
           child: Text(
             'Hello flutter!',
             style: TextStyle(fontSize: 30),
