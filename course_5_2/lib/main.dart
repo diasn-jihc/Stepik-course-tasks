@@ -5,32 +5,35 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Simple Routing'),
+          title: const Text('Named Routing'),
           centerTitle: true,
         ),
         body: const HomePage(),
       ),
+      initialRoute: '/',
+      routes: {
+        '/page2': (context) => const Page2(),
+      },
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ElevatedButton(
         onPressed: () {
-          Route route = MaterialPageRoute(builder: (context) => const Page2());
-          Navigator.push(context, route);
+          Navigator.pushNamed(context, '/page2');
         },
         child: const Text('Move to Page 2'),
       ),
@@ -39,13 +42,13 @@ class HomePage extends StatelessWidget {
 }
 
 class Page2 extends StatelessWidget {
-  const Page2({super.key});
+  const Page2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Page 2'),       
+        title: const Text('Page 2'),
         centerTitle: true,
       ),
       body: Center(
