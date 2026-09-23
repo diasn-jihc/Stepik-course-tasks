@@ -86,7 +86,7 @@ class _ComponentCountesState extends State<ComponentCountes> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: Text("${_currentValue.toString()}"),
+                child: Text(_currentValue.toString()),
               ),
               IconButton(
                 onPressed: () {

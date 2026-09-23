@@ -3,7 +3,7 @@
 // ?.. - cascade null-aware operator
 
 void main() {
-  Path? path;
+  Path? path = DateTime.now().millisecond.isEven ? Path() : null;
 
   path
     ?..moveTo(0, 0)

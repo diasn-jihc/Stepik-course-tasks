@@ -5,7 +5,7 @@ void main() {
 }
 
 class FirstHome extends StatelessWidget {
-  const FirstHome({Key? key}) : super(key: key);
+  const FirstHome({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +17,7 @@ class FirstHome extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class HomePage extends StatelessWidget {
 class SecondHome extends StatelessWidget {
   final User user;
 
-  const SecondHome({Key? key, required this.user}) : super(key: key);
+  const SecondHome({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {

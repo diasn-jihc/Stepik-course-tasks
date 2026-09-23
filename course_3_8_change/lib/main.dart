@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -129,7 +131,7 @@ Wrap _temperatureForecast() {
         avatar: Icon(Icons.wb_cloudy, color: Colors.cyanAccent),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8.0),
-          side: BorderSide(color: Colors.cyanAccent.withOpacity(0.5)),
+          side: BorderSide(color: Colors.cyanAccent.withValues(alpha: 0.5)),
         ),
         backgroundColor: Colors.blueGrey[800],
       );

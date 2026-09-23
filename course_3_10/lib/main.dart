@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,6 +21,8 @@ class MyApp extends StatelessWidget {
 }
 
 class BodyListView extends StatelessWidget {
+  const BodyListView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return _myListView();
@@ -33,7 +37,7 @@ Widget _myListView() {
     itemBuilder: (context, index) {
       return Card(
         child: ListTile(
-          title: Text('${items[index]}'),
+          title: Text(items[index]),
           leading: Icon(Icons.insert_photo, color: Colors.red),
           trailing: Icon(Icons.keyboard_arrow_right),
         ),

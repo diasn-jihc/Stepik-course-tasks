@@ -3,10 +3,6 @@
 
 void main() {
   Map<String, int> categories = {'Kitchen': 1, 'Bedroom': 2};
-  Map<String, int>? nullableMap;
-  Map<String, int?> nullableValues = {'null': null};
-  Map<String, int?>? nullableMapAndNullableValues;
-
   print(categories['Room']);
 
   int value1 = categories['Room'] ?? 3;
