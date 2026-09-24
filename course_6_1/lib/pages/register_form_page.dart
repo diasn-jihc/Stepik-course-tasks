@@ -19,8 +19,8 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
         child: ListView(
           padding: EdgeInsets.all(16.0),
           children: [],
-        ), // ListView
-      ), // Form
-    ); // Scaffold
+        ), 
+      ), 
+    );
   }
 }
