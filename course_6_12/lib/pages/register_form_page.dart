@@ -144,7 +144,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                 icon: Icon(Icons.mail),
               ),
               validator: _validateEmail,
-              onSaved: (value) => newUser.email = value!,
+              onSaved: (value) => newUser.email = value ?? '',
             ),
             SizedBox(height: 10),
             DropdownButtonFormField<String>(
@@ -182,7 +182,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               ),
               maxLines: 3,
               inputFormatters: [LengthLimitingTextInputFormatter(100)],
-               onSaved: (value) => newUser.story = value!,
+              onSaved: (value) => newUser.story = value ?? '',
             ),
             SizedBox(height: 10),
             TextFormField(
@@ -205,7 +205,6 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                 ),
                 icon: Icon(Icons.security),
               ),
-              validator: _validatePassword,
             ),
             SizedBox(height: 10),
             TextFormField(
@@ -217,7 +216,6 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                 hintText: 'Confirm the password',
                 icon: Icon(Icons.border_color),
               ),
-              validator: _validateConfirmPassword,
             ),
             SizedBox(height: 15),
             ElevatedButton(
@@ -263,7 +261,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
 
   String? _validateEmail(String? value) {
     if (value == null || value.isEmpty) {
-      return 'Email cannot be empty';
+      return null;
     } else if (!value.contains('@')) {
       return 'Invalid email address';
     } else {
