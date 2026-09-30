@@ -8,7 +8,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Vanilla Demo',
+      title: 'Оценка',
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
     );
   }
@@ -24,71 +25,55 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _rating = 0;
 
+  static const List<String> _labels = [
+    'Поставьте оценку',
+    'Плохо',
+    'Нормально',
+    'Отлично!',
+  ];
+
   @override
   Widget build(BuildContext context) {
-    double size = 50;
+    const double size = 50;
 
     return Scaffold(
+      backgroundColor: Colors.teal[50],
       appBar: AppBar(
-        title: const Text('Vanilla Demo'),
+        backgroundColor: Colors.teal[700],
+        foregroundColor: Colors.white,
+        title: const Text('Оцените приложение'),
       ),
       body: Center(
-        child: Row(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            IconButton(
-              icon: (_rating >= 2
-                  ? Icon(
-                      Icons.star,
-                      size: size,
-                    )
-                  : Icon(
-                      Icons.star_border,
-                      size: size,
-                    )),
-              color: Colors.indigo[500],
-              iconSize: size,
-              onPressed: () {
-                setState(() {
-                  _rating = 1;
-                });
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(3, (index) {
+                final int value = index + 1;
+                return IconButton(
+                  icon: Icon(
+                    _rating >= value ? Icons.star : Icons.star_border,
+                    size: size,
+                  ),
+                  color: Colors.amber[700],
+                  iconSize: size,
+                  onPressed: () {
+                    setState(() {
+                      _rating = value;
+                    });
+                  },
+                );
+              }),
             ),
-            IconButton(
-              icon: (_rating >= 2
-                  ? Icon(
-                      Icons.star,
-                      size: size,
-                    )
-                  : Icon(
-                      Icons.star_border,
-                      size: size,
-                    )),
-              color: Colors.indigo[500],
-              iconSize: size,
-              onPressed: () {
-                setState(() {
-                  _rating = 2;
-                });
-              },
-            ),
-            IconButton(
-              icon: (_rating >= 3
-                  ? Icon(
-                      Icons.star,
-                      size: size,
-                    )
-                  : Icon(
-                      Icons.star_border,
-                      size: size,
-                    )),
-              color: Colors.indigo[500],
-              iconSize: size,
-              onPressed: () {
-                setState(() {
-                  _rating = 3;
-                });
-              },
+            const SizedBox(height: 16),
+            Text(
+              _labels[_rating],
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+                color: Colors.teal[900],
+              ),
             ),
           ],
         ),

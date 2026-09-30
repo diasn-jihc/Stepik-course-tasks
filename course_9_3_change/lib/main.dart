@@ -8,11 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Inherited Demo',
+      title: 'Пример Inherited',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: const MyHomePage(title: 'Inherited Demo'),
+      home: const MyHomePage(title: 'Пример Inherited'),
     );
   }
 }
@@ -36,9 +36,12 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber.shade50,
       appBar: AppBar(
-        title: const Text('Inherited Widget'),
+        title: const Text('Общее состояние'),
         centerTitle: true,
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
       ),
       body: ListView(
         children: <Widget>[
@@ -60,9 +63,10 @@ class AppRootWidget extends StatelessWidget {
     final rootWidgetState = MyInheritedWidget.of(context)!.myState;
     return Card(
       elevation: 4.0,
+      color: Colors.orange.shade100,
       child: Column(
         children: <Widget>[
-          Text('(Root Widget)', style: Theme.of(context).textTheme.headlineMedium),
+          Text('(Родительский виджет)', style: Theme.of(context).textTheme.headlineMedium),
           Text('${rootWidgetState.counterValue}', style: Theme.of(context).textTheme.headlineMedium),
           const SizedBox(height: 50),
           Row(
@@ -86,21 +90,21 @@ class Counter extends StatelessWidget {
     final rootWidgetState = MyInheritedWidget.of(context)!.myState;
     return Card(
       margin: const EdgeInsets.all(4.0).copyWith(bottom: 32.0),
-      color: Colors.yellowAccent,
+      color: Colors.lightBlue.shade100,
       child: Column(
         children: <Widget>[
-          const Text('(Child Widget)'),
+          const Text('(Дочерний виджет)'),
           Text('${rootWidgetState.counterValue}', style: Theme.of(context).textTheme.headlineMedium),
           ButtonBar(
             children: <Widget>[
               IconButton(
                 icon: const Icon(Icons.remove),
-                color: Colors.red,
+                color: Colors.deepOrange,
                 onPressed: () => rootWidgetState._decrementCounter(),
               ),
               IconButton(
                 icon: const Icon(Icons.add),
-                color: Colors.green,
+                color: Colors.teal,
                 onPressed: () => rootWidgetState._incrementCounter(),
               ),
             ],

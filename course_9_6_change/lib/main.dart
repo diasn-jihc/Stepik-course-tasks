@@ -11,9 +11,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Inherited Demo',
+      title: 'Пример Provider',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
       home: MultiProvider(
         providers: [
@@ -33,9 +33,14 @@ class MyApp extends StatelessWidget {
             length: 3,
             child: Scaffold(
               appBar: AppBar(
-                title: const Text("Provider Demo"),
+                title: const Text("Демо Provider"),
                 centerTitle: true,
+                backgroundColor: Colors.teal,
+                foregroundColor: Colors.white,
                 bottom: const TabBar(
+                  labelColor: Colors.white,
+                  unselectedLabelColor: Colors.white70,
+                  indicatorColor: Colors.amber,
                   tabs: <Widget>[
                     Tab(icon: Icon(Icons.add)),
                     Tab(icon: Icon(Icons.person)),
@@ -65,12 +70,13 @@ class MyCountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     CountProvider state = Provider.of<CountProvider>(context);
     return Scaffold(
+      backgroundColor: Colors.amber.shade50,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text('ChangeNotifierProvider Example',
-                style: TextStyle(fontSize: 20)),
+            Text('Пример ChangeNotifierProvider',
+                style: TextStyle(fontSize: 20, color: Colors.teal.shade900)),
             const SizedBox(height: 50),
             Text('${state.counterValue}',
                 style: Theme.of(context).textTheme.headlineMedium),
@@ -79,14 +85,14 @@ class MyCountPage extends StatelessWidget {
               children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.remove),
-                  color: Colors.red,
+                  color: Colors.deepOrange,
                   onPressed: () => state._decrementCount(),
                 ),
                 Consumer<CountProvider>(
                   builder: (context, value, child) {
                     return IconButton(
                       icon: const Icon(Icons.add),
-                      color: Colors.green,
+                      color: Colors.teal,
                       onPressed: () => value._incrementCount(),
                     );
                   },
@@ -109,7 +115,7 @@ class MyUserPage extends StatelessWidget {
       children: <Widget>[
         const Padding(
           padding: EdgeInsets.all(10.0),
-          child: Text('FutureProvider Example, users loaded from a File',
+          child: Text('Пример FutureProvider, пользователи загружены из файла',
               style: TextStyle(fontSize: 17)),
         ),
         Consumer<List<User>>(
@@ -122,7 +128,7 @@ class MyUserPage extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return Container(
                             height: 50,
-                            color: Colors.grey[(index * 200) % 400],
+                            color: index.isEven ? Colors.teal.shade50 : Colors.amber.shade50,
                             child: Center(
                                 child: Text(
                                     '${users[index].firstName} ${users[index].lastName} | ${users[index].website}')));
@@ -146,7 +152,7 @@ class MyEventPage extends StatelessWidget {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-    const Text('StreamProvider Example', style: TextStyle(fontSize: 20)),
+    const Text('Пример StreamProvider', style: TextStyle(fontSize: 20)),
     const SizedBox(height: 50),
     Text(value.toString(),
         style: Theme.of(context).textTheme.headlineMedium)

@@ -6,7 +6,7 @@ void main() => runApp(const MyApp());
 
 class ColorProvider extends ChangeNotifier {
   bool _isSwitched = false;
-  Color _currentColor = Colors.green;
+  Color _currentColor = Colors.teal;
 
   bool get isSwitched => _isSwitched;
   Color get currentColor => _currentColor;
@@ -30,6 +30,8 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => ColorProvider(),
       child: const MaterialApp(
+        title: 'Смена цвета',
+        debugShowCheckedModeBanner: false,
         home: HomeScreen(),
       ),
     );
@@ -43,9 +45,11 @@ class HomeScreen extends StatelessWidget {
     final colorProvider = Provider.of<ColorProvider>(context);
 
     return Scaffold(
+      backgroundColor: Colors.amber.shade50,
       appBar: AppBar(
-        title: const Text('Homework Provider'),
-        backgroundColor: Colors.black,
+        title: const Text('Смена цвета через Provider'),
+        backgroundColor: Colors.teal.shade700,
+        foregroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
@@ -60,9 +64,14 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 30),
             Switch(
               value: colorProvider.isSwitched,
+              activeColor: Colors.deepOrange,
               onChanged: (value) {
                 colorProvider.toggleSwitch(value);
               },
+            ),
+            Text(
+              'Переключите, чтобы сменить цвет',
+              style: TextStyle(color: Colors.teal.shade900, fontSize: 16),
             ),
           ],
         ),

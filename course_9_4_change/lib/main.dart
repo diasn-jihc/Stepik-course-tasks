@@ -9,11 +9,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'ScopedModel Demo',
+      title: 'Пример ScopedModel',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
-      home: const MyHomePage(title: 'ScopedModel Demo'),
+      home: const MyHomePage(title: 'Пример ScopedModel'),
     );
   }
 }
@@ -30,9 +30,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amber.shade50,
       appBar: AppBar(
-        title: const Text('ScopedModel Widget'),
+        title: const Text('Общая модель'),
         centerTitle: true,
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
       ),
       body: ListView(
         children: <Widget>[
@@ -51,9 +54,10 @@ class _AppRootWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 4.0,
+      color: Colors.orange.shade100,
       child: Column(
         children: <Widget>[
-          Text('(Root Widget)', style: Theme.of(context).textTheme.headlineMedium),
+          Text('(Родительский виджет)', style: Theme.of(context).textTheme.headlineMedium),
           const SizedBox(height: 50),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -75,21 +79,21 @@ class _Counter extends StatelessWidget {
       rebuildOnChange: true,
       builder: (context, child, model) => Card(
         margin: const EdgeInsets.all(4.0).copyWith(bottom: 32.0),
-        color: Colors.yellowAccent,
+        color: Colors.lightBlue.shade100,
         child: Column(
           children: <Widget>[
-            const Text('(Child Widget)'),
+            const Text('(Дочерний виджет)'),
             Text('${model.counterValue}', style: Theme.of(context).textTheme.headlineMedium),
             ButtonBar(
               children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.remove),
-                  color: Colors.red,
+                  color: Colors.deepOrange,
                   onPressed: () => model._decrementCounter(),
                 ),
                 IconButton(
                   icon: const Icon(Icons.add),
-                  color: Colors.green,
+                  color: Colors.teal,
                   onPressed: () => model._incrementCounter(),
                 ),
               ],
