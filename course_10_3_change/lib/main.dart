@@ -8,15 +8,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'SQLite CRUD Demo',
+      title: 'Демо SQLite CRUD',
+      theme: ThemeData(
+        colorSchemeSeed: Colors.teal,
+        scaffoldBackgroundColor: Colors.teal.shade50,
+      ),
       home: StudentPage(),
     );
   }
 }
+
 class StudentPage extends StatefulWidget {
   @override
   _StudentPageState createState() => _StudentPageState();
 }
+
 class _StudentPageState extends State<StudentPage> {
   final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();
   final _studentNameController = TextEditingController();
@@ -24,29 +30,33 @@ class _StudentPageState extends State<StudentPage> {
   late String _studentName;
   bool isUpdate = false;
   int? studentIdForUpdate;
+
   @override
   void initState() {
     super.initState();
     updateStudentList();
   }
+
   updateStudentList() {
     setState(() {
       _studentsList = DBProvider.db.getStudents();
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SQLite CRUD Demo'),
+        title: Text('Демо SQLite CRUD'),
         centerTitle: true,
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.teal,
+        foregroundColor: Colors.white,
       ),
       body: Column(
         children: <Widget>[
           Form(
             key: _formStateKey,
-            autovalidateMode: AutovalidateMode.always, 
+            autovalidateMode: AutovalidateMode.always,
             child: Column(
               children: <Widget>[
                 Padding(
@@ -54,10 +64,10 @@ class _StudentPageState extends State<StudentPage> {
                   child: TextFormField(
                     validator: (value) {
                       if (value == null) {
-                        return 'Please Enter Student Name';
+                        return 'Введите имя студента';
                       }
                       if (value.trim() == "")
-                        return "Only Space is Not Valid!!!";
+                        return "Одни пробелы недопустимы!";
                       return null;
                     },
                     onSaved: (value) {
@@ -65,20 +75,19 @@ class _StudentPageState extends State<StudentPage> {
                     },
                     controller: _studentNameController,
                     decoration: InputDecoration(
-                      focusedBorder: new UnderlineInputBorder(
-                        borderSide: new BorderSide(
-                            color: Colors.greenAccent,
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Colors.deepOrange,
                             width: 2,
                             style: BorderStyle.solid),
                       ),
-                      labelText: "Student Name",
+                      labelText: "Имя студента",
                       icon: Icon(
                         Icons.people,
-                        color: Colors.black,
+                        color: Colors.teal,
                       ),
-                      fillColor: Colors.white,
                       labelStyle: TextStyle(
-                        color: Colors.black,
+                        color: Colors.teal.shade800,
                       ),
                     ),
                   ),
@@ -91,29 +100,22 @@ class _StudentPageState extends State<StudentPage> {
             children: <Widget>[
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                  textStyle: TextStyle(color: Colors.white),
+                  backgroundColor: Colors.teal,
+                  foregroundColor: Colors.white,
                 ),
                 child: Text(
-                  (isUpdate ? 'UPDATE' : 'ADD'),
+                  (isUpdate ? 'ОБНОВИТЬ' : 'ДОБАВИТЬ'),
                 ),
-                onPressed: () {
-                  if (isUpdate) {
-                    if (_formStateKey.currentState!.validate()) {
-                      _formStateKey.currentState!.save();
-                      DBProvider.db
-                          .updateStudent(
-                              Student(studentIdForUpdate!, _studentName))
-                          .then((data) {
-                        setState(() {
-                          isUpdate = false;
-                        });
-                      });
-                    }
-                  } else {
-                    if (_formStateKey.currentState!.validate()) {
-                      _formStateKey.currentState!.save();
-                      DBProvider.db.insertStudent(Student(null, _studentName));
+                onPressed: () async {
+                  if (_formStateKey.currentState!.validate()) {
+                    _formStateKey.currentState!.save();
+                    if (isUpdate) {
+                      await DBProvider.db.updateStudent(
+                          Student(studentIdForUpdate!, _studentName));
+                      isUpdate = false;
+                    } else {
+                      await DBProvider.db
+                          .insertStudent(Student(null, _studentName));
                     }
                   }
                   _studentNameController.text = '';
@@ -125,11 +127,11 @@ class _StudentPageState extends State<StudentPage> {
               ),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.red,
-                  textStyle: TextStyle(color: Colors.white),
+                  backgroundColor: Colors.deepOrange,
+                  foregroundColor: Colors.white,
                 ),
                 child: Text(
-                  (isUpdate ? 'CANCEL UPDATE' : 'CLEAR'),
+                  (isUpdate ? 'ОТМЕНИТЬ ОБНОВЛЕНИЕ' : 'ОЧИСТИТЬ'),
                 ),
                 onPressed: () {
                   _studentNameController.text = '';
@@ -141,20 +143,22 @@ class _StudentPageState extends State<StudentPage> {
               ),
             ],
           ),
-          const Divider(
+          Divider(
             height: 5.0,
+            color: Colors.teal,
           ),
           Expanded(
-            child: FutureBuilder(
+            child: FutureBuilder<List<Student>>(
               future: _studentsList,
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return generateList(snapshot.data as List<Student>);
+                if (snapshot.connectionState != ConnectionState.done) {
+                  return Center(child: CircularProgressIndicator());
                 }
-                if (snapshot.data == null || (snapshot.data as List<Student>).length == 0) {
-                  return Text('No Data Found');
+                final students = snapshot.data ?? [];
+                if (students.isEmpty) {
+                  return Center(child: Text('Данные не найдены'));
                 }
-                return CircularProgressIndicator();
+                return generateList(students);
               },
             ),
           ),
@@ -169,12 +173,16 @@ class _StudentPageState extends State<StudentPage> {
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: DataTable(
+          headingTextStyle: TextStyle(
+            color: Colors.teal.shade800,
+            fontWeight: FontWeight.bold,
+          ),
           columns: [
             DataColumn(
-              label: Text('NAME'),
+              label: Text('ИМЯ'),
             ),
             DataColumn(
-              label: Text('DELETE'),
+              label: Text('УДАЛИТЬ'),
             ),
           ],
           rows: students
@@ -189,9 +197,9 @@ class _StudentPageState extends State<StudentPage> {
                   }),
                   DataCell(
                     IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        DBProvider.db.deleteStudent(student.id);
+                      icon: Icon(Icons.delete, color: Colors.deepOrange),
+                      onPressed: () async {
+                        await DBProvider.db.deleteStudent(student.id);
                         updateStudentList();
                       },
                     ),
