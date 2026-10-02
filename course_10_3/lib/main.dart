@@ -2,20 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:course_10_3/db/database.dart';
 import 'package:course_10_3/model/student.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'SQLite CRUD Demo',
-      home: StudentPage(),
+      home: const StudentPage(),
     );
   }
 }
 class StudentPage extends StatefulWidget {
+  const StudentPage({super.key});
   @override
-  _StudentPageState createState() => _StudentPageState();
+  State<StudentPage> createState() => _StudentPageState();
 }
 class _StudentPageState extends State<StudentPage> {
   final GlobalKey<FormState> _formStateKey = GlobalKey<FormState>();

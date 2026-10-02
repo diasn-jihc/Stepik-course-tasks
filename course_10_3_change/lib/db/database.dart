@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:sqflite/sqlite_api.dart';
 import 'package:course_10_3/model/student.dart';
 
 class DBProvider {
@@ -22,8 +21,8 @@ class DBProvider {
   }
 
   Future<Database> _initDB() async {
-    Directory dir = await getApplicationDocumentsDirectory();
-    String path = dir.path + 'Student.db';
+    final dir = await getApplicationDocumentsDirectory();
+    final path = '${dir.path}${Platform.pathSeparator}Student.db';
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 
@@ -35,7 +34,7 @@ class DBProvider {
   }
 
   Future<List<Student>> getStudents() async {
-    Database db = await this.database;
+    final db = await database;
     final List<Map<String, dynamic>> studentsMapList =
         await db.query(studentsTable);
     final List<Student> studentsList = [];
@@ -48,13 +47,13 @@ class DBProvider {
 
 
   Future<Student> insertStudent(Student student) async {
-    Database db = await this.database;
+    final db = await database;
     student.id = await db.insert(studentsTable, student.toMap());
     return student;
   }
 
   Future<int> updateStudent(Student student) async {
-    Database db = await this.database;
+    final db = await database;
     return await db.update(
       studentsTable,
       student.toMap(),
@@ -64,7 +63,7 @@ class DBProvider {
   }
 
   Future<int> deleteStudent(int? id) async {
-    Database db = await this.database;
+    final db = await database;
     return await db.delete(
       studentsTable,
       where: '$columnId = ?',

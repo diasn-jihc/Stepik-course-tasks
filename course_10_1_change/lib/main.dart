@@ -3,25 +3,27 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Чтение и запись локального файла',
+      title: 'Р§С‚РµРЅРёРµ Рё Р·Р°РїРёСЃСЊ Р»РѕРєР°Р»СЊРЅРѕРіРѕ С„Р°Р№Р»Р°',
       theme: ThemeData(
         colorSchemeSeed: Colors.teal,
         scaffoldBackgroundColor: Colors.teal.shade50,
       ),
-      home: ReadWriteFileExample(),
+      home: const ReadWriteFileExample(),
     );
   }
 }
 
 class ReadWriteFileExample extends StatefulWidget {
+  const ReadWriteFileExample({super.key});
   @override
-  _ReadWriteFileExampleState createState() => _ReadWriteFileExampleState();
+  State<ReadWriteFileExample> createState() => _ReadWriteFileExampleState();
 }
 
 class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
@@ -32,10 +34,19 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
   String _localFilePath = kLocalFileName;
 
   @override
+  void dispose() {
+    _textController.dispose();
+    _textFieldFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
-    this._readTextFromLocalFile();
-    this._getLocalFile.then((file) => setState(() => this._localFilePath = file.path));
+    _readTextFromLocalFile();
+    _getLocalFile.then((file) {
+      if (mounted) setState(() => _localFilePath = file.path);
+    });
   }
 
   @override
@@ -46,7 +57,7 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
         ?.copyWith(color: Colors.teal.shade800);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Чтение и запись файла'),
+        title: Text('Р§С‚РµРЅРёРµ Рё Р·Р°РїРёСЃСЊ С„Р°Р№Р»Р°'),
         centerTitle: true,
         backgroundColor: Colors.teal,
         foregroundColor: Colors.white,
@@ -54,51 +65,54 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
       body: ListView(
         padding: EdgeInsets.all(20.0),
         children: <Widget>[
-          Text('Запись в локальный файл:', style: titleStyle),
+          Text('Р—Р°РїРёСЃСЊ РІ Р»РѕРєР°Р»СЊРЅС‹Р№ С„Р°Р№Р»:', style: titleStyle),
           TextField(
             focusNode: _textFieldFocusNode,
             controller: _textController,
             maxLines: null,
             style: TextStyle(fontSize: 20),
             decoration: InputDecoration(
-              hintText: 'Введите текст...',
+              hintText: 'Р’РІРµРґРёС‚Рµ С‚РµРєСЃС‚...',
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(),
             ),
           ),
-          ButtonBar(
+          OverflowBar(
+            spacing: 8,
             children: <Widget>[
               MaterialButton(
                 color: Colors.deepOrange,
                 textColor: Colors.white,
-                child: Text('Загрузить', style: TextStyle(fontSize: 20)),
+                child: Text('Р—Р°РіСЂСѓР·РёС‚СЊ', style: TextStyle(fontSize: 20)),
                 onPressed: () async {
-                  await this._readTextFromLocalFile();
-                  this._textController.text = this._localFileContent;
+                  await _readTextFromLocalFile();
+                  if (!context.mounted) return;
+                  _textController.text = _localFileContent;
                   FocusScope.of(context).requestFocus(_textFieldFocusNode);
-                  log('Строка успешно загружена из локального файла');
+                  log('РЎС‚СЂРѕРєР° СѓСЃРїРµС€РЅРѕ Р·Р°РіСЂСѓР¶РµРЅР° РёР· Р»РѕРєР°Р»СЊРЅРѕРіРѕ С„Р°Р№Р»Р°');
                 },
               ),
               MaterialButton(
                 color: Colors.teal,
                 textColor: Colors.white,
-                child: Text('Сохранить', style: TextStyle(fontSize: 20)),
+                child: Text('РЎРѕС…СЂР°РЅРёС‚СЊ', style: TextStyle(fontSize: 20)),
                 onPressed: () async {
-                  await this._writeTextToLocalFile(this._textController.text);
-                  this._textController.clear();
-                  await this._readTextFromLocalFile();
-                  log('Строка успешно записана в локальный файл');
+                  await _writeTextToLocalFile(_textController.text);
+                  if (!context.mounted) return;
+                  _textController.clear();
+                  await _readTextFromLocalFile();
+                  log('РЎС‚СЂРѕРєР° СѓСЃРїРµС€РЅРѕ Р·Р°РїРёСЃР°РЅР° РІ Р»РѕРєР°Р»СЊРЅС‹Р№ С„Р°Р№Р»');
                 },
               ),
             ],
           ),
           Divider(height: 20.0, color: Colors.teal),
-          Text('Путь к локальному файлу:', style: titleStyle),
-          Text(this._localFilePath, style: Theme.of(context).textTheme.bodyLarge),
+          Text('РџСѓС‚СЊ Рє Р»РѕРєР°Р»СЊРЅРѕРјСѓ С„Р°Р№Р»Сѓ:', style: titleStyle),
+          Text(_localFilePath, style: Theme.of(context).textTheme.bodyLarge),
           Divider(height: 20.0, color: Colors.teal),
-          Text('Содержимое локального файла:', style: titleStyle),
-          Text(this._localFileContent, style: Theme.of(context).textTheme.bodyLarge),
+          Text('РЎРѕРґРµСЂР¶РёРјРѕРµ Р»РѕРєР°Р»СЊРЅРѕРіРѕ С„Р°Р№Р»Р°:', style: titleStyle),
+          Text(_localFileContent, style: Theme.of(context).textTheme.bodyLarge),
         ],
       ),
     );
@@ -119,16 +133,15 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
     return file.writeAsString(text);
   }
 
-  Future _readTextFromLocalFile() async {
-    String content;
+  Future<void> _readTextFromLocalFile() async {
+    late final String content;
     try {
       final file = await _getLocalFile;
       content = await file.readAsString();
     } catch (e) {
-      content = 'Ошибка загрузки локального файла: $e';
+      content = 'РћС€РёР±РєР° Р·Р°РіСЂСѓР·РєРё Р»РѕРєР°Р»СЊРЅРѕРіРѕ С„Р°Р№Р»Р°: $e';
     }
-    setState(() {
-      this._localFileContent = content;
-    });
+    if (!mounted) return;
+    setState(() => _localFileContent = content);
   }
 }

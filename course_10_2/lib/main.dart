@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Shared Preference Demo',
-      home: SharedPrefereceExample(),
+      home: const SharedPrefereceExample(),
     );
   }
 }
 class SharedPrefereceExample extends StatefulWidget {
+  const SharedPrefereceExample({super.key});
   @override
-  _SharedPrefereceExampleState createState() => _SharedPrefereceExampleState();
+  State<SharedPrefereceExample> createState() => _SharedPrefereceExampleState();
 }
 class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
   late SharedPreferences _prefs;
@@ -28,7 +30,8 @@ class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
     super.initState();
     SharedPreferences.getInstance()
     ..then((prefs) {
-      setState(() => this._prefs = prefs);
+      if (!mounted) return;
+      setState(() => _prefs = prefs);
       _loadNumberPref();
       _loadBoolPref();
     });
@@ -48,25 +51,25 @@ class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
             children: <TableRow>[
               TableRow(children: <Widget>[
                 Text('Number Preference'),
-                Text('${this._numberPref}'),
+                Text('${_numberPref}'),
                 ElevatedButton(
                   child: Text('Increment'),
-                  onPressed: () => this._setNumberPref(this._numberPref + 1),
+                  onPressed: () => _setNumberPref(_numberPref + 1),
                 ),
               ]),
               TableRow(children: <Widget>[
                 Text('Boolean Preference'),
-                Text('${this._boolPref}'),
+                Text('${_boolPref}'),
                 ElevatedButton(
                   child: Text('Toogle'),
-                  onPressed: () => this._setBoolPref(!this._boolPref),
+                  onPressed: () => _setBoolPref(!_boolPref),
                 ),
               ]),
             ],
           ),
           ElevatedButton(
             child: Text('Reset Data'),
-            onPressed: () => this._resetDataPref(),
+            onPressed: () => _resetDataPref(),
           ),
         ],
       ),
@@ -74,29 +77,29 @@ class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
   }
 
   Future<Null> _setNumberPref(int value) async {
-    await this._prefs.setInt(kNumberPrefKey, value);
+    await _prefs.setInt(kNumberPrefKey, value);
     _loadNumberPref();
   }
 
   Future<Null> _setBoolPref(bool value) async {
-    await this._prefs.setBool(kBoolPrefKey, value);
+    await _prefs.setBool(kBoolPrefKey, value);
     _loadBoolPref();
   }
 
   void _loadNumberPref() {
     setState(() {
-      this._numberPref = this._prefs.getInt(kNumberPrefKey) ?? 0;
+      _numberPref = _prefs.getInt(kNumberPrefKey) ?? 0;
     });
   }
   void _loadBoolPref() {
     setState(() {
-      this._boolPref = this._prefs.getBool(kBoolPrefKey) ?? false;
+      _boolPref = _prefs.getBool(kBoolPrefKey) ?? false;
     });
   }
 
   Future<Null> _resetDataPref() async {
-    await this._prefs.remove(kNumberPrefKey);
-    await this._prefs.remove(kBoolPrefKey);
+    await _prefs.remove(kNumberPrefKey);
+    await _prefs.remove(kBoolPrefKey);
     _loadNumberPref();
     _loadBoolPref();
   }

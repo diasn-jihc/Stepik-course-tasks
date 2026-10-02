@@ -79,10 +79,10 @@ Future<http.Response> getData() async {
 void loadData() {
   getData().then((response) {
     if (response.statusCode == 200) {
-      print('Данные успешно получены:');
-      print(response.body);
+      debugPrint('Данные успешно получены:');
+      debugPrint(response.body);
     } else {
-      print('Ошибка загрузки. Код статуса: ${response.statusCode}');
+      debugPrint('Ошибка загрузки. Код статуса: ${response.statusCode}');
     }
   }).catchError((error) {
     debugPrint('Произошла ошибка сети: $error');

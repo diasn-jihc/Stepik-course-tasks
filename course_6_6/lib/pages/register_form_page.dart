@@ -171,13 +171,13 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      print('Form is valid');
-      print('Name: ${_nameController.text}');
-      print('Phone: ${_phoneController.text}');
-      print('Email: ${_emailController.text}');
-      print('Story: ${_storyController.text}');
+      debugPrint('Form is valid');
+      debugPrint('Name: ${_nameController.text}');
+      debugPrint('Phone: ${_phoneController.text}');
+      debugPrint('Email: ${_emailController.text}');
+      debugPrint('Story: ${_storyController.text}');
     } else {
-      print('Form is not valid! Please review and correct');
+      debugPrint('Form is not valid! Please review and correct');
     }
   }
 

@@ -172,7 +172,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                   newUser.country = country;
                 });
               },
-              value: _selectedCountry,
+              initialValue: _selectedCountry,
               validator: (val) {
                 return val == null ? 'Пожалуйста, выберите страну' : null;
               },
@@ -248,11 +248,11 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _showDialog(name: _nameController.text);
-      print('Имя: ${_nameController.text}');
-      print('Телефон: ${_phoneController.text}');
-      print('Email: ${_emailController.text}');
-      print('Страна: $_selectedCountry');
-      print('О себе: ${_storyController.text}');
+      debugPrint('Имя: ${_nameController.text}');
+      debugPrint('Телефон: ${_phoneController.text}');
+      debugPrint('Email: ${_emailController.text}');
+      debugPrint('Страна: $_selectedCountry');
+      debugPrint('О себе: ${_storyController.text}');
     } else {
       _showMessage(message: 'Форма заполнена неверно! Проверьте данные');
     }

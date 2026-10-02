@@ -80,7 +80,8 @@ class _Counter extends StatelessWidget {
           children: <Widget>[
             const Text('(Child Widget)'),
             Text('${model.counterValue}', style: Theme.of(context).textTheme.headlineMedium),
-            ButtonBar(
+            OverflowBar(
+              spacing: 8,
               children: <Widget>[
                 IconButton(
                   icon: const Icon(Icons.remove),

@@ -160,13 +160,13 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
                 );
               }).toList(),
                onChanged: (country) {
-                print(country);
+                debugPrint(country);
                 setState(() {
                   _selectedCountry = country as String;
                   newUser.country = country;
                 });
               },
-              value: _selectedCountry,
+              initialValue: _selectedCountry,
               validator: (val) {
                 return val == null ? 'Please select a country' : null;
               },
@@ -235,11 +235,11 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _showDialog(name: _nameController.text);
-      print('Name: ${_nameController.text}');
-      print('Phone: ${_phoneController.text}');
-      print('Email: ${_emailController.text}');
-      print('Country: $_selectedCountry');
-      print('Story: ${_storyController.text}');
+      debugPrint('Name: ${_nameController.text}');
+      debugPrint('Phone: ${_phoneController.text}');
+      debugPrint('Email: ${_emailController.text}');
+      debugPrint('Country: $_selectedCountry');
+      debugPrint('Story: ${_storyController.text}');
     } else {
       _showMessage(message: 'Form is not valid! Please review and correct');
     }

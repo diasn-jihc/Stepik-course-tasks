@@ -52,9 +52,9 @@ Future<http.Response> getData() async {
 void loadData() {
   getData().then((response) {
     if(response.statusCode == 200) {
-      print(response.body);
+      debugPrint(response.body);
     } else {
-      print(response.statusCode);
+      debugPrint(response.statusCode.toString());
     }
   }).catchError((error) {
     debugPrint(error.toString());

@@ -5,7 +5,7 @@ class Student {
   Student(this.id, this.name);
 
   Map<String, dynamic> toMap() {
-    final map = Map<String, dynamic>();
+    final map = <String, dynamic>{};
     map['id'] = id;
     map['name'] = name;
     return map;

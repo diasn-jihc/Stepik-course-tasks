@@ -155,18 +155,20 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               ),
               items: _countries.map((country) {
                 return DropdownMenuItem<String>(
-                  child: Text(country),
                   value: country,
+                  child: Text(country),
                 );
               }).toList(),
                onChanged: (country) {
-                print(country);
+                debugPrint('Selected country: $country');
                 setState(() {
-                  _selectedCountry = country as String;
-                  newUser.country = country;
+                  _selectedCountry = country;
+                  if (country != null) {
+                    newUser.country = country;
+                  }
                 });
               },
-              value: _selectedCountry,
+              initialValue: _selectedCountry,
               validator: (val) {
                 return val == null ? 'Please select a country' : null;
               },
@@ -190,6 +192,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               controller: _passController,
               obscureText: _hidePass,
               maxLength: 8,
+              validator: _validatePassword,
               decoration: InputDecoration(
                 labelText: 'Password *',
                 hintText: 'Enter the password',
@@ -211,6 +214,7 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               controller: _confirmPassController,
               obscureText: _hidePass,
               maxLength: 8,
+              validator: _validateConfirmPassword,
               decoration: InputDecoration(
                 labelText: 'Confirm Password *',
                 hintText: 'Confirm the password',
@@ -233,21 +237,21 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       _showDialog(name: _nameController.text);
-      print('Name: ${_nameController.text}');
-      print('Phone: ${_phoneController.text}');
-      print('Email: ${_emailController.text}');
-      print('Country: $_selectedCountry');
-      print('Story: ${_storyController.text}');
+      debugPrint('Name: ${_nameController.text}');
+      debugPrint('Phone: ${_phoneController.text}');
+      debugPrint('Email: ${_emailController.text}');
+      debugPrint('Country: $_selectedCountry');
+      debugPrint('Story: ${_storyController.text}');
     } else {
       _showMessage(message: 'Form is not valid! Please review and correct');
     }
   }
 
   String? _validateName(String? value) {
-    final _nameExp = RegExp(r'^[A-Za-z ]+$');
+    final nameExp = RegExp(r'^[A-Za-z ]+$');
     if (value == null || value.isEmpty) {
       return 'Name is reqired.';
-    } else if (!_nameExp.hasMatch(value)) {
+    } else if (!nameExp.hasMatch(value)) {
       return 'Please enter alphabetical characters.';
     } else {
       return null;
@@ -255,8 +259,8 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
   }
 
   bool _validatePhoneNumber(String input) {
-    final _phoneExp = RegExp(r'^\(\d\d\d\)\d\d\d-\d\d\d\d$');
-    return _phoneExp.hasMatch(input);
+    final phoneExp = RegExp(r'^\(\d\d\d\)\d\d\d-\d\d\d\d$');
+    return phoneExp.hasMatch(input);
   }
 
   String? _validateEmail(String? value) {

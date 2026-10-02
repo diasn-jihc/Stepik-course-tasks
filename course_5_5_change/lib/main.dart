@@ -81,7 +81,7 @@ class FirstHome extends StatelessWidget {
 class SecondHome extends StatelessWidget {
   final User user;
 
-  const SecondHome({Key? key, required this.user}) : super(key: key);
+  const SecondHome({super.key, required this.user});
 
   @override
   Widget build(BuildContext context) {

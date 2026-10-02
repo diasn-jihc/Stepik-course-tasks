@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     // Unix timestamp бойынша датаны түрлендіру
-    var rawDate = DateTime.fromMillisecondsSinceEpoch(1485789600 * 1000);
-    var dateFormat = DateFormat('EEEE');
-    print('День недели: ${dateFormat.format(rawDate)}');
+    final rawDate = DateTime.fromMillisecondsSinceEpoch(1485789600 * 1000);
+    final dateFormat = DateFormat('EEEE');
+    debugPrint('День недели: ${dateFormat.format(rawDate)}');
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
