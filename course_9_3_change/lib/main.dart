@@ -8,11 +8,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Пример Inherited',
+      title: 'State Demo',
       theme: ThemeData(
-        primarySwatch: Colors.teal,
+        primarySwatch: Colors.purple,
       ),
-      home: const MyHomePage(title: 'Пример Inherited'),
+      home: const MyHomePage(title: 'State Demo'),
     );
   }
 }
@@ -36,11 +36,10 @@ class MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amber.shade50,
       appBar: AppBar(
-        title: const Text('Общее состояние'),
+        title: const Text('Shared State'),
         centerTitle: true,
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.deepPurple,
         foregroundColor: Colors.white,
       ),
       body: ListView(
@@ -61,13 +60,20 @@ class AppRootWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rootWidgetState = MyInheritedWidget.of(context)!.myState;
+
     return Card(
       elevation: 4.0,
-      color: Colors.orange.shade100,
+      color: Colors.purple.shade100,
       child: Column(
         children: <Widget>[
-          Text('(Родительский виджет)', style: Theme.of(context).textTheme.headlineMedium),
-          Text('${rootWidgetState.counterValue}', style: Theme.of(context).textTheme.headlineMedium),
+          Text(
+            '',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Text(
+            '${rootWidgetState.counterValue}',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
           const SizedBox(height: 50),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -88,13 +94,17 @@ class Counter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rootWidgetState = MyInheritedWidget.of(context)!.myState;
+
     return Card(
       margin: const EdgeInsets.all(4.0).copyWith(bottom: 32.0),
-      color: Colors.lightBlue.shade100,
+      color: Colors.lightGreenAccent,
       child: Column(
         children: <Widget>[
-          const Text('(Дочерний виджет)'),
-          Text('${rootWidgetState.counterValue}', style: Theme.of(context).textTheme.headlineMedium),
+          const Text('(Child Widget)'),
+          Text(
+            '${rootWidgetState.counterValue}',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
           ButtonBar(
             children: <Widget>[
               IconButton(
@@ -104,7 +114,7 @@ class Counter extends StatelessWidget {
               ),
               IconButton(
                 icon: const Icon(Icons.add),
-                color: Colors.teal,
+                color: Colors.indigo,
                 onPressed: () => rootWidgetState._incrementCounter(),
               ),
             ],
@@ -118,8 +128,11 @@ class Counter extends StatelessWidget {
 class MyInheritedWidget extends InheritedWidget {
   final MyHomePageState myState;
 
-  const MyInheritedWidget({Key? key, required Widget child, required this.myState})
-      : super(key: key, child: child);
+  const MyInheritedWidget({
+    Key? key,
+    required Widget child,
+    required this.myState,
+  }) : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(MyInheritedWidget oldWidget) {

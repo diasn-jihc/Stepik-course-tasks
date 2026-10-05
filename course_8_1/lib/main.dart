@@ -25,11 +25,22 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   void initState() {
     super.initState();
     loadData();
+  }
+
+  void loadData() {
+    getData().then((response) {
+      if (response.statusCode == 200) {
+        debugPrint(response.body);
+      } else {
+        debugPrint(response.statusCode.toString());
+      }
+    }).catchError((error) {
+      debugPrint(error.toString());
+    });
   }
 
   @override
@@ -47,16 +58,4 @@ class _MyHomePageState extends State<MyHomePage> {
 Future<http.Response> getData() async {
   const url = 'https://about.google/static/data/locations.json';
   return await http.get(Uri.parse(url));
-}
-
-void loadData() {
-  getData().then((response) {
-    if(response.statusCode == 200) {
-      debugPrint(response.body);
-    } else {
-      debugPrint(response.statusCode.toString());
-    }
-  }).catchError((error) {
-    debugPrint(error.toString());
-  });
 }
