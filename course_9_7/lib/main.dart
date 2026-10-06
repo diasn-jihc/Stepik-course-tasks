@@ -45,7 +45,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Homework Provider'),
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.white,
       ),
       body: Center(
         child: Column(
