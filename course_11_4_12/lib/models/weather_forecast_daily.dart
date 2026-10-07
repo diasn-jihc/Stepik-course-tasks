@@ -1,21 +1,23 @@
+import 'package:course_11_3/utilities/constants.dart';
+
 class WeatherForecast {
-  City? city;
-  String? cod;
-  double? message;
-  int? cnt;
-  List<WeatherList>? list;
+  dynamic city;
+  dynamic cod;
+  dynamic message;
+  dynamic cnt;
+  dynamic list;
 
   WeatherForecast({this.city, this.cod, this.message, this.cnt, this.list});
 
   WeatherForecast.fromJson(Map<String, dynamic> json) {
     city = json['city'] != null ? new City.fromJson(json['city']) : null;
     cod = json['cod'];
-    message = (json['message'] as num?)?.toDouble();
+    message = json['message'];
     cnt = json['cnt'];
     if (json['list'] != null) {
-      list = <WeatherList>[];
+      list = [];
       json['list'].forEach((v) {
-        list!.add(new WeatherList.fromJson(v));
+        list.add(new WeatherList.fromJson(v));
       });
     }
   }
@@ -23,25 +25,25 @@ class WeatherForecast {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.city != null) {
-      data['city'] = this.city!.toJson();
+      data['city'] = this.city.toJson();
     }
     data['cod'] = this.cod;
     data['message'] = this.message;
     data['cnt'] = this.cnt;
     if (this.list != null) {
-      data['list'] = this.list!.map((v) => v.toJson()).toList();
+      data['list'] = this.list.map((v) => v.toJson()).toList();
     }
     return data;
   }
 }
 
 class City {
-  int? id;
-  String? name;
-  Coord? coord;
-  String? country;
-  int? population;
-  int? timezone;
+  dynamic id;
+  dynamic name;
+  dynamic coord;
+  dynamic country;
+  dynamic population;
+  dynamic timezone;
 
   City(
       {this.id,
@@ -65,7 +67,7 @@ class City {
     data['id'] = this.id;
     data['name'] = this.name;
     if (this.coord != null) {
-      data['coord'] = this.coord!.toJson();
+      data['coord'] = this.coord.toJson();
     }
     data['country'] = this.country;
     data['population'] = this.population;
@@ -75,14 +77,14 @@ class City {
 }
 
 class Coord {
-  double? lon;
-  double? lat;
+  dynamic lon;
+  dynamic lat;
 
   Coord({this.lon, this.lat});
 
   Coord.fromJson(Map<String, dynamic> json) {
-    lon = (json['lon'] as num?)?.toDouble();
-    lat = (json['lat'] as num?)?.toDouble();
+    lon = json['lon'].toDouble();
+    lat = json['lat'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -94,18 +96,18 @@ class Coord {
 }
 
 class WeatherList {
-  int? dt;
-  int? sunrise;
-  int? sunset;
-  Temp? temp;
-  FeelsLike? feelsLike;
-  int? pressure;
-  int? humidity;
-  List<Weather>? weather;
-  double? speed;
-  int? deg;
-  int? clouds;
-  num? rain;
+  dynamic dt;
+  dynamic sunrise;
+  dynamic sunset;
+  dynamic temp;
+  dynamic feelsLike;
+  dynamic pressure;
+  dynamic humidity;
+  dynamic weather;
+  dynamic speed;
+  dynamic deg;
+  dynamic clouds;
+  dynamic rain;
 
   WeatherList(
       {this.dt,
@@ -132,12 +134,12 @@ class WeatherList {
     pressure = json['pressure'];
     humidity = json['humidity'];
     if (json['weather'] != null) {
-      weather = <Weather>[];
+      weather = [];
       json['weather'].forEach((v) {
-        weather!.add(new Weather.fromJson(v));
+        weather.add(new Weather.fromJson(v));
       });
     }
-    speed = (json['speed'] as num?)?.toDouble();
+    speed = json['speed'];
     deg = json['deg'];
     clouds = json['clouds'];
     rain = json['rain'];
@@ -149,15 +151,15 @@ class WeatherList {
     data['sunrise'] = this.sunrise;
     data['sunset'] = this.sunset;
     if (this.temp != null) {
-      data['temp'] = this.temp!.toJson();
+      data['temp'] = this.temp.toJson();
     }
     if (this.feelsLike != null) {
-      data['feels_like'] = this.feelsLike!.toJson();
+      data['feels_like'] = this.feelsLike.toJson();
     }
     data['pressure'] = this.pressure;
     data['humidity'] = this.humidity;
     if (this.weather != null) {
-      data['weather'] = this.weather!.map((v) => v.toJson()).toList();
+      data['weather'] = this.weather.map((v) => v.toJson()).toList();
     }
     data['speed'] = this.speed;
     data['deg'] = this.deg;
@@ -165,25 +167,29 @@ class WeatherList {
     data['rain'] = this.rain;
     return data;
   }
+
+  String getIconUrl() {
+    return Constants.WEATHER_IMAGES_URL + weather[0].icon + '.png';
+  }
 }
 
 class Temp {
-  double? day;
-  double? min;
-  double? max;
-  double? night;
-  double? eve;
-  double? morn;
+  dynamic day;
+  dynamic min;
+  dynamic max;
+  dynamic night;
+  dynamic eve;
+  dynamic morn;
 
   Temp({this.day, this.min, this.max, this.night, this.eve, this.morn});
 
   Temp.fromJson(Map<String, dynamic> json) {
-    day = (json['day'] as num?)?.toDouble();
-    min = (json['min'] as num?)?.toDouble();
-    max = (json['max'] as num?)?.toDouble();
-    night = (json['night'] as num?)?.toDouble();
-    eve = (json['eve'] as num?)?.toDouble();
-    morn = (json['morn'] as num?)?.toDouble();
+    day = json['day'].toDouble();
+    min = json['min'].toDouble();
+    max = json['max'].toDouble();
+    night = json['night'].toDouble();
+    eve = json['eve'].toDouble();
+    morn = json['morn'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -199,18 +205,18 @@ class Temp {
 }
 
 class FeelsLike {
-  double? day;
-  double? night;
-  double? eve;
-  double? morn;
+  dynamic day;
+  dynamic night;
+  dynamic eve;
+  dynamic morn;
 
   FeelsLike({this.day, this.night, this.eve, this.morn});
 
   FeelsLike.fromJson(Map<String, dynamic> json) {
-    day = (json['day'] as num?)?.toDouble();
-    night = (json['night'] as num?)?.toDouble();
-    eve = (json['eve'] as num?)?.toDouble();
-    morn = (json['morn'] as num?)?.toDouble();
+    day = json['day'].toDouble();
+    night = json['night'].toDouble();
+    eve = json['eve'].toDouble();
+    morn = json['morn'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
@@ -224,10 +230,10 @@ class FeelsLike {
 }
 
 class Weather {
-  int? id;
-  String? main;
-  String? description;
-  String? icon;
+  dynamic id;
+  dynamic main;
+  dynamic description;
+  dynamic icon;
 
   Weather({this.id, this.main, this.description, this.icon});
 
@@ -247,3 +253,5 @@ class Weather {
     return data;
   }
 }
+
+
