@@ -24,10 +24,10 @@ class ActionButtons extends StatelessWidget {
         const SizedBox(width: 8.0),
         ElevatedButton(
           onPressed: () {
-            _userBloc.add(UserLoadEvent());
+            _userBloc.add(UserClearEvent());
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red
+            backgroundColor: Colors.red,
             ),
           child: const Text('Clear'),
         ),
