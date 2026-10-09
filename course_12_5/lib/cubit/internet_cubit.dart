@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -7,10 +9,10 @@ class MyConnectionState {
 }
 
 class ConnectionCubit extends Cubit<MyConnectionState> {
-  late StreamSubscription<ConnectivityResult> _subscription;
+  late StreamSubscription<List<ConnectivityResult>> _subscription;
   ConnectionCubit() : super(MyConnectionState(false)) {
-    _subscription = Connectivity().onConnectivityChanged.listen((result) { 
-      emit(MyConnectionState(result != ConnectivityResult.none));
+    _subscription = Connectivity().onConnectivityChanged.listen((results) {
+      emit(MyConnectionState(results.any((result) => result != ConnectivityResult.none)));
     });
   }
   
