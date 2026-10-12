@@ -27,10 +27,10 @@ class HomePage extends StatelessWidget {
           appBar: AppBar(
             title: BlocBuilder<ConnectionCubit, MyConnectionState>(
               builder: (context, state) => state.connected
-                  ? const Text('User List (в сети)')
+                  ? const Text('Список пользователей (в сети)')
                   : const Text(
-                      'Нет соединения с интернет!',
-                      style: TextStyle(color: Colors.red),
+                      'Нет соединения с интернетом!',
+                      style: TextStyle(color: Colors.orange),
                     ),
             ),
             centerTitle: true,
