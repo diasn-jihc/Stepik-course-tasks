@@ -14,15 +14,16 @@ class UserList extends StatelessWidget {
         log(state.toString());
         if (state is UserLoadedState) {
           ScaffoldMessenger.of(context)
-              .showSnackBar(const SnackBar(content: Text('Users is Loaded')));
+              .showSnackBar(const SnackBar(content: Text('Пользователи загружены')));
         }
       }),
       builder: (context, state) {
         if (state is UserEmptyState) {
           return const Center(
             child: Text(
-              'No data received. Please button "Load"',
+              'Данные не получены. Нажмите кнопку «Загрузить»',
               style: TextStyle(fontSize: 20),
+              textAlign: TextAlign.center,
             ),
           );
         }
@@ -35,7 +36,7 @@ class UserList extends StatelessWidget {
           return ListView.builder(
             itemCount: state.loadedUser.length,
             itemBuilder: (context, index) => Container(
-              color: index % 2 == 0 ? Colors.white : Colors.blue[50],
+              color: index % 2 == 0 ? Colors.white : Colors.orange[50],
               child: ListTile(
                 leading: Text(
                   'ID: ${state.loadedUser[index].id}',
@@ -54,7 +55,7 @@ class UserList extends StatelessWidget {
                           style: const TextStyle(fontStyle: FontStyle.italic),
                         ),
                         Text(
-                          'Phone: ${state.loadedUser[index].phone}',
+                          'Телефон: ${state.loadedUser[index].phone}',
                           style: const TextStyle(fontStyle: FontStyle.italic),
                         ),
                       ],
@@ -69,7 +70,7 @@ class UserList extends StatelessWidget {
         if (state is UserErrorState) {
           return const Center(
             child: Text(
-              'Error fetching users',
+              'Ошибка при загрузке пользователей',
               style: TextStyle(fontSize: 20.0),
             ),
           );

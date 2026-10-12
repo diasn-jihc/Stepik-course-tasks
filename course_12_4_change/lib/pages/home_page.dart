@@ -13,10 +13,10 @@ class HomePage extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => UserRepository(),
       child: BlocProvider(
-        create: (context) => UserBloc(userRepository: context.read<UserRepository>()),      
+        create: (context) => UserBloc(userRepository: context.read<UserRepository>()),
         child: Scaffold(
           appBar: AppBar(
-            title: const Text('User List'),
+            title: const Text('Список пользователей'),
             centerTitle: true,
           ),
           backgroundColor: Colors.white,

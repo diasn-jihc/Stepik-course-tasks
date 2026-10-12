@@ -17,9 +17,9 @@ class ActionButtons extends StatelessWidget {
             _userBloc.add(UserLoadEvent());
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green
-            ),
-          child: Text('Load'),
+            backgroundColor: Colors.blue,
+          ),
+          child: const Text('Загрузить'),
         ),
         const SizedBox(width: 8.0),
         ElevatedButton(
@@ -27,9 +27,9 @@ class ActionButtons extends StatelessWidget {
             _userBloc.add(UserClearEvent());
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-            ),
-          child: const Text('Clear'),
+            backgroundColor: Colors.orange,
+          ),
+          child: const Text('Очистить'),
         ),
       ],
     );
