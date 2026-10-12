@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'BLoC with flutter_bloc',
+      title: 'BLoC с flutter_bloc',
       home: BlocProvider(
         create: (context) => ColorBloc(),
         child: const MyHomePage(),
@@ -29,7 +29,7 @@ class MyHomePage extends StatelessWidget {
     ColorBloc bloc = BlocProvider.of<ColorBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BLoC with flutter_bloc'),
+        title: const Text('BLoC с flutter_bloc'),
         centerTitle: true,
       ),
       body: Center(
@@ -47,16 +47,16 @@ class MyHomePage extends StatelessWidget {
         children: [
           FloatingActionButton(
             onPressed: () {
-              bloc.add(RedColorEvent());
+              bloc.add(BlueColorEvent());
             },
-            backgroundColor: Colors.red,
+            backgroundColor: Colors.blue,
           ),
           const SizedBox(width: 10),
           FloatingActionButton(
             onPressed: () {
-              bloc.add(GreenColorEvent());
+              bloc.add(OrangeColorEvent());
             },
-            backgroundColor: Colors.green,
+            backgroundColor: Colors.orange,
           ),
         ],
       ),

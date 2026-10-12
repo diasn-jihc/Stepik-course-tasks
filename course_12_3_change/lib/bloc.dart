@@ -3,13 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class ColorEvent {}
 
-class RedColorEvent extends ColorEvent {}
-class GreenColorEvent extends ColorEvent {}
+class BlueColorEvent extends ColorEvent {}
+
+class OrangeColorEvent extends ColorEvent {}
 
 class ColorBloc extends Bloc<ColorEvent, Color> {
-  ColorBloc() : super(Colors.red) {
-    on<RedColorEvent>((event, emit) => emit(Colors.red));
-    on<GreenColorEvent>((event, emit) => emit(Colors.green));
+  ColorBloc() : super(Colors.blue) {
+    on<BlueColorEvent>((event, emit) => emit(Colors.blue));
+    on<OrangeColorEvent>((event, emit) => emit(Colors.orange));
   }
-  
 }
