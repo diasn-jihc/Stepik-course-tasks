@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-enum ColorEvent { event_red, event_green }
+enum ColorEvent { blue, orange }
 
 class ColorBloc {
-  Color _color = Colors.red;
+  Color _color = Colors.blue;
 
   final _inputEventController = StreamController<ColorEvent>();
   StreamSink<ColorEvent> get inputEventSink => _inputEventController.sink;
@@ -13,12 +13,13 @@ class ColorBloc {
   Stream<Color> get outputStateStream => _outputStateController.stream;
 
   void _mapEventToState(ColorEvent event) {
-    if (event == ColorEvent.event_red)
-      _color = Colors.red;
-    else if (event == ColorEvent.event_green)
-      _color = Colors.green;
-    else
-      throw Exception('Wrong Event Type');
+    if (event == ColorEvent.blue) {
+      _color = Colors.blue;
+    } else if (event == ColorEvent.orange) {
+      _color = Colors.orange;
+    } else {
+      throw Exception('Неверный тип события');
+    }
 
     _outputStateController.sink.add(_color);
   }
