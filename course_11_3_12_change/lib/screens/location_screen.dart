@@ -21,9 +21,7 @@ class _LocationScreenState extends State<LocationScreen> {
         context,
         MaterialPageRoute(
           builder: (context) {
-            return WeatherForecastScreen(
-              locationWeather: weatherInfo,
-            );
+            return WeatherForecastScreen(locationWeather: weatherInfo);
           },
         ),
       );
@@ -43,10 +41,7 @@ class _LocationScreenState extends State<LocationScreen> {
     return const Scaffold(
       backgroundColor: Color(0xFFF1F5F9),
       body: Center(
-        child: SpinKitDoubleBounce(
-          color: Color(0xFF0D9488),
-          size: 100.0,
-        ),
+        child: SpinKitDoubleBounce(color: Color(0xFF0D9488), size: 100.0),
       ),
     );
   }

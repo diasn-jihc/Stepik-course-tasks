@@ -4,21 +4,27 @@ import 'package:course_11_3/screens/weather_forecast_screen.dart';
 import 'package:flutter/material.dart';
 
 class LocationScreen extends StatefulWidget {
+  const LocationScreen({super.key});
+
   @override
-  _LocationScreenState createState() => _LocationScreenState();
+  State<LocationScreen> createState() => _LocationScreenState();
 }
 
 class _LocationScreenState extends State<LocationScreen> {
-
   void getLocationData() async {
     try {
       var weatherInfo = await WeatherApi().fetchWeatherForecast();
       if (!mounted) return;
-      Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return WeatherForecastScreen(locationWeather: weatherInfo);
-    }));
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            return WeatherForecastScreen(locationWeather: weatherInfo);
+          },
+        ),
+      );
     } catch (e) {
-      print('$e');
+      debugPrint('$e');
     }
   }
 

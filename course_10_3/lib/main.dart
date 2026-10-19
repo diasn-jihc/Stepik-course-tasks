@@ -31,7 +31,7 @@ class _StudentPageState extends State<StudentPage> {
     super.initState();
     updateStudentList();
   }
-  updateStudentList() {
+  void updateStudentList() {
     setState(() {
       _studentsList = DBProvider.db.getStudents();
     });
@@ -58,8 +58,9 @@ class _StudentPageState extends State<StudentPage> {
                       if (value == null) {
                         return 'Please Enter Student Name';
                       }
-                      if (value.trim() == "")
+                      if (value.trim() == "") {
                         return "Only Space is Not Valid!!!";
+                      }
                       return null;
                     },
                     onSaved: (value) {
@@ -67,8 +68,8 @@ class _StudentPageState extends State<StudentPage> {
                     },
                     controller: _studentNameController,
                     decoration: InputDecoration(
-                      focusedBorder: new UnderlineInputBorder(
-                        borderSide: new BorderSide(
+                      focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
                             color: Colors.greenAccent,
                             width: 2,
                             style: BorderStyle.solid),
@@ -153,7 +154,7 @@ class _StudentPageState extends State<StudentPage> {
                 if (snapshot.hasData) {
                   return generateList(snapshot.data as List<Student>);
                 }
-                if (snapshot.data == null || (snapshot.data as List<Student>).length == 0) {
+                if (snapshot.data == null || (snapshot.data as List<Student>).isEmpty) {
                   return Text('No Data Found');
                 }
                 return CircularProgressIndicator();

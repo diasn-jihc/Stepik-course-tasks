@@ -22,14 +22,10 @@ class BottomListView extends StatelessWidget {
         ),
         Container(
           height: 140,
-          padding: const EdgeInsets.symmetric(
-            vertical: 16,
-            horizontal: 16,
-          ),
+          padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            separatorBuilder: (context, index) =>
-                const SizedBox(width: 10),
+            separatorBuilder: (context, index) => const SizedBox(width: 10),
             itemCount: snapshot.data!.list.length,
             itemBuilder: (context, index) => Container(
               width: MediaQuery.of(context).size.width / 2.7,

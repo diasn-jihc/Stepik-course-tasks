@@ -8,13 +8,13 @@ class ActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final UserBloc _userBloc = BlocProvider.of<UserBloc>(context);
+    final UserBloc userBloc = BlocProvider.of<UserBloc>(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         ElevatedButton(
           onPressed: () {
-            _userBloc.add(UserLoadEvent());
+            userBloc.add(UserLoadEvent());
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.blue,
@@ -24,7 +24,7 @@ class ActionButtons extends StatelessWidget {
         const SizedBox(width: 8.0),
         ElevatedButton(
           onPressed: () {
-            _userBloc.add(UserClearEvent());
+            userBloc.add(UserClearEvent());
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.orange,

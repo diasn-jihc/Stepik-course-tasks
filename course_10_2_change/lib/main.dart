@@ -61,7 +61,7 @@ class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
               children: <TableRow>[
                 TableRow(children: <Widget>[
                   Text('Числовая настройка', style: textStyle),
-                  Text('${_numberPref}', style: textStyle),
+                  Text('$_numberPref', style: textStyle),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrange,

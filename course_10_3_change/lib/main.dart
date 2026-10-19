@@ -5,6 +5,8 @@ import 'package:course_10_3/model/student.dart';
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,8 +21,10 @@ class MyApp extends StatelessWidget {
 }
 
 class StudentPage extends StatefulWidget {
+  const StudentPage({super.key});
+
   @override
-  _StudentPageState createState() => _StudentPageState();
+  State<StudentPage> createState() => _StudentPageState();
 }
 
 class _StudentPageState extends State<StudentPage> {
@@ -37,7 +41,7 @@ class _StudentPageState extends State<StudentPage> {
     updateStudentList();
   }
 
-  updateStudentList() {
+  void updateStudentList() {
     setState(() {
       _studentsList = DBProvider.db.getStudents();
     });
@@ -66,8 +70,9 @@ class _StudentPageState extends State<StudentPage> {
                       if (value == null) {
                         return 'Введите имя студента';
                       }
-                      if (value.trim() == "")
+                      if (value.trim() == "") {
                         return "Одни пробелы недопустимы!";
+                      }
                       return null;
                     },
                     onSaved: (value) {

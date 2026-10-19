@@ -12,7 +12,7 @@ class WeatherForecastScreen extends StatefulWidget {
   const WeatherForecastScreen({super.key, this.locationWeather});
 
   @override
-  _WeatherForecastScreenState createState() => _WeatherForecastScreenState();
+  State<WeatherForecastScreen> createState() => _WeatherForecastScreenState();
 }
 
 class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
@@ -49,15 +49,21 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
           IconButton(
             icon: const Icon(Icons.location_city),
             onPressed: () async {
-              var tappedName = await Navigator.push(context,
-                  MaterialPageRoute(builder: (context) {
-                return CityScreen();
-              }));
+              var tappedName = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) {
+                    return CityScreen();
+                  },
+                ),
+              );
               if (tappedName != null) {
                 setState(() {
                   _cityName = tappedName;
-                  forecastObject = WeatherApi()
-                      .fetchWeatherForecast(city: _cityName, isCity: true);
+                  forecastObject = WeatherApi().fetchWeatherForecast(
+                    city: _cityName,
+                    isCity: true,
+                  );
                 });
               }
             },
@@ -83,9 +89,10 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                   ],
                 );
               } else if (snapshot.hasError) {
-                final message = snapshot.error
-                    .toString()
-                    .replaceFirst('Exception: ', '');
+                final message = snapshot.error.toString().replaceFirst(
+                  'Exception: ',
+                  '',
+                );
                 return Padding(
                   padding: const EdgeInsets.all(24.0),
                   child: Center(

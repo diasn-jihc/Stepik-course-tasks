@@ -62,7 +62,7 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
             maxLines: null,
             style: TextStyle(fontSize: 20)
           ),
-          ButtonBar(
+          OverflowBar(
             children: <Widget>[
               MaterialButton(
                 child: Text('Load', style: TextStyle(fontSize: 20)),

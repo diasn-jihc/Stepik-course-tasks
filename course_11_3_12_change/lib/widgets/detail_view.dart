@@ -31,16 +31,8 @@ class DetailView extends StatelessWidget {
             pressure.round(),
             'мм рт. ст.',
           ),
-          Util.getItem(
-            FontAwesomeIcons.cloudRain,
-            humidity,
-            '% влажности',
-          ),
-          Util.getItem(
-            FontAwesomeIcons.wind,
-            wind.toInt(),
-            'м/с',
-          ),
+          Util.getItem(FontAwesomeIcons.cloudRain, humidity, '% влажности'),
+          Util.getItem(FontAwesomeIcons.wind, wind.toInt(), 'м/с'),
         ],
       ),
     );

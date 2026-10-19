@@ -6,10 +6,12 @@ import 'package:course_11_3/models/weather_forecast_daily.dart';
 import 'package:course_11_3/utilities/constants.dart';
 
 class WeatherApi {
-  Future<WeatherForecast> fetchWeatherForecast(
-      {String? city, bool isCity = false}) async {
+  Future<WeatherForecast> fetchWeatherForecast({
+    String? city,
+    bool isCity = false,
+  }) async {
     final Map<String, String> parameters = {
-      'appid': Constants.WEATHER_APP_ID,
+      'appid': Constants.weatherAppId,
       'units': 'metric',
     };
 
@@ -22,13 +24,16 @@ class WeatherApi {
         parameters['lat'] = location.latitude.toString();
         parameters['lon'] = location.longitude.toString();
       } catch (e) {
-        log('Location unavailable: $e. Using ${Constants.DEFAULT_CITY}');
-        parameters['q'] = Constants.DEFAULT_CITY;
+        log('Location unavailable: $e. Using ${Constants.defaultCity}');
+        parameters['q'] = Constants.defaultCity;
       }
     }
 
-    final uri = Uri.https(Constants.WEATHER_BASE_URL_DOMAIN,
-        Constants.WEATHER_FORECAST_PATH, parameters);
+    final uri = Uri.https(
+      Constants.weatherBaseUrlDomain,
+      Constants.weatherForecastPath,
+      parameters,
+    );
     log('request: $uri');
 
     final response = await http.get(uri);
@@ -40,12 +45,15 @@ class WeatherApi {
     } else if (response.statusCode == 404) {
       throw Exception('City not found.\nPlease, enter correct city');
     } else if (response.statusCode == 401) {
-      throw Exception('Invalid API key (401).\nCheck WEATHER_APP_ID');
+      throw Exception('Invalid API key (401).\nCheck weatherAppId');
     } else {
-      throw Exception('Failed to load the weather forecast '
-          '(${response.statusCode})');
+      throw Exception(
+        'Failed to load the weather forecast '
+        '(${response.statusCode})',
+      );
     }
   }
+
   Map<String, dynamic> _toDaily(Map<String, dynamic> data) {
     final city = Map<String, dynamic>.from(data['city'] as Map);
     final int tz = (city['timezone'] as num?)?.toInt() ?? 0;
@@ -74,15 +82,14 @@ class WeatherApi {
       final eve = _closest(items, 18, tz);
       final night = _closest(items, 3, tz);
 
-      final pressure = items
-              .map((m) => main(m, 'pressure'))
-              .reduce((a, b) => a + b) /
+      final pressure =
+          items.map((m) => main(m, 'pressure')).reduce((a, b) => a + b) /
           items.length;
-      final humidity = items
-              .map((m) => main(m, 'humidity'))
-              .reduce((a, b) => a + b) /
+      final humidity =
+          items.map((m) => main(m, 'humidity')).reduce((a, b) => a + b) /
           items.length;
-      final speed = items
+      final speed =
+          items
               .map((m) => ((m['wind'] as Map)['speed'] as num).toDouble())
               .reduce((a, b) => a + b) /
           items.length;
@@ -138,11 +145,16 @@ class WeatherApi {
   }
 
   DateTime _localTime(Map<String, dynamic> m, int tz) =>
-      DateTime.fromMillisecondsSinceEpoch(((m['dt'] as num).toInt() + tz) * 1000,
-          isUtc: true);
+      DateTime.fromMillisecondsSinceEpoch(
+        ((m['dt'] as num).toInt() + tz) * 1000,
+        isUtc: true,
+      );
 
   Map<String, dynamic> _closest(
-      List<Map<String, dynamic>> items, int hour, int tz) {
+    List<Map<String, dynamic>> items,
+    int hour,
+    int tz,
+  ) {
     var best = items.first;
     var bestDiff = 100;
     for (final m in items) {

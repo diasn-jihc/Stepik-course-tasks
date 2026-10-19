@@ -11,27 +11,24 @@ class CityView extends StatelessWidget {
     var forecastList = snapshot.data!.list;
     var city = snapshot.data!.city.name;
     var country = snapshot.data!.city.country;
-    var formattedDate = DateTime.fromMillisecondsSinceEpoch(forecastList[0].dt * 1000);
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text(
-            '$city, $country',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 28.0,
-              color: Colors.black87,
-            ),
+    var formattedDate = DateTime.fromMillisecondsSinceEpoch(
+      forecastList[0].dt * 1000,
+    );
+    return Column(
+      children: <Widget>[
+        Text(
+          '$city, $country',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 28.0,
+            color: Colors.black87,
           ),
-          Text(
-            '${Util.getFormattedDate(formattedDate)}',
-            style: TextStyle(
-              fontSize: 15.0,
-            ),
-          ),
-        ],
-      ),
+        ),
+        Text(
+          Util.getFormattedDate(formattedDate),
+          style: TextStyle(fontSize: 15.0),
+        ),
+      ],
     );
   }
 }
-

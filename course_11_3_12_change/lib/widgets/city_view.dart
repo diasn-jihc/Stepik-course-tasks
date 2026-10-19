@@ -16,26 +16,21 @@ class CityView extends StatelessWidget {
       forecastList[0].dt * 1000,
     );
 
-    return Container(
-      child: Column(
-        children: <Widget>[
-          Text(
-            '$city, $country',
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 28.0,
-              color: Color(0xFF0F766E),
-            ),
+    return Column(
+      children: <Widget>[
+        Text(
+          '$city, $country',
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 28.0,
+            color: Color(0xFF0F766E),
           ),
-          Text(
-            Util.getFormattedDate(formattedDate),
-            style: const TextStyle(
-              fontSize: 15.0,
-              color: Color(0xFF64748B),
-            ),
-          ),
-        ],
-      ),
+        ),
+        Text(
+          Util.getFormattedDate(formattedDate),
+          style: const TextStyle(fontSize: 15.0, color: Color(0xFF64748B)),
+        ),
+      ],
     );
   }
 }

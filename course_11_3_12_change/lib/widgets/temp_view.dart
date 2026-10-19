@@ -11,36 +11,30 @@ class TempView extends StatelessWidget {
     var forecastList = snapshot.data!.list;
     var icon = forecastList[0].getIconUrl();
     var temp = forecastList[0].temp.day.toStringAsFixed(0);
-    var description =
-        forecastList[0].weather[0].description.toUpperCase();
+    var description = forecastList[0].weather[0].description.toUpperCase();
 
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Image.network(icon, scale: 0.4),
-          const SizedBox(width: 20.0),
-          Column(
-            children: <Widget>[
-              Text(
-                '$temp °C',
-                style: const TextStyle(
-                  fontSize: 54.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF0F172A),
-                ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Image.network(icon, scale: 0.4),
+        const SizedBox(width: 20.0),
+        Column(
+          children: <Widget>[
+            Text(
+              '$temp °C',
+              style: const TextStyle(
+                fontSize: 54.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF0F172A),
               ),
-              Text(
-                description,
-                style: const TextStyle(
-                  fontSize: 18.0,
-                  color: Color(0xFF0D9488),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
+            ),
+            Text(
+              description,
+              style: const TextStyle(fontSize: 18.0, color: Color(0xFF0D9488)),
+            ),
+          ],
+        ),
+      ],
     );
   }
 }

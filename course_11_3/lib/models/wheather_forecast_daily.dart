@@ -8,28 +8,28 @@ class WheatherForecast {
   WheatherForecast({this.city, this.cod, this.message, this.cnt, this.list});
 
   WheatherForecast.fromJson(Map<String, dynamic> json) {
-    city = json['city'] != null ? new City.fromJson(json['city']) : null;
+    city = json['city'] != null ? City.fromJson(json['city']) : null;
     cod = json['cod'];
     message = json['message'];
     cnt = json['cnt'];
     if (json['list'] != null) {
       list = <WheatherList>[];
       json['list'].forEach((v) {
-        list!.add(new WheatherList.fromJson(v));
+        list!.add(WheatherList.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.city != null) {
-      data['city'] = this.city!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (city != null) {
+      data['city'] = city!.toJson();
     }
-    data['cod'] = this.cod;
-    data['message'] = this.message;
-    data['cnt'] = this.cnt;
-    if (this.list != null) {
-      data['list'] = this.list!.map((v) => v.toJson()).toList();
+    data['cod'] = cod;
+    data['message'] = message;
+    data['cnt'] = cnt;
+    if (list != null) {
+      data['list'] = list!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -54,22 +54,22 @@ class City {
   City.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
-    coord = json['coord'] != null ? new Coord.fromJson(json['coord']) : null;
+    coord = json['coord'] != null ? Coord.fromJson(json['coord']) : null;
     country = json['country'];
     population = json['population'];
     timezone = json['timezone'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    if (this.coord != null) {
-      data['coord'] = this.coord!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    if (coord != null) {
+      data['coord'] = coord!.toJson();
     }
-    data['country'] = this.country;
-    data['population'] = this.population;
-    data['timezone'] = this.timezone;
+    data['country'] = country;
+    data['population'] = population;
+    data['timezone'] = timezone;
     return data;
   }
 }
@@ -86,9 +86,9 @@ class Coord {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['lon'] = this.lon;
-    data['lat'] = this.lat;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['lon'] = lon;
+    data['lat'] = lat;
     return data;
   }
 }
@@ -125,16 +125,16 @@ class WheatherList {
     dt = json['dt'];
     sunrise = json['sunrise'];
     sunset = json['sunset'];
-    temp = json['temp'] != null ? new Temp.fromJson(json['temp']) : null;
+    temp = json['temp'] != null ? Temp.fromJson(json['temp']) : null;
     feelsLike = json['feels_like'] != null
-        ? new FeelsLike.fromJson(json['feels_like'])
+        ? FeelsLike.fromJson(json['feels_like'])
         : null;
     pressure = json['pressure'];
     humidity = json['humidity'];
     if (json['weather'] != null) {
       weather = <Weather>[];
       json['weather'].forEach((v) {
-        weather!.add(new Weather.fromJson(v));
+        weather!.add(Weather.fromJson(v));
       });
     }
     speed = json['speed'];
@@ -144,25 +144,25 @@ class WheatherList {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['dt'] = this.dt;
-    data['sunrise'] = this.sunrise;
-    data['sunset'] = this.sunset;
-    if (this.temp != null) {
-      data['temp'] = this.temp!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['dt'] = dt;
+    data['sunrise'] = sunrise;
+    data['sunset'] = sunset;
+    if (temp != null) {
+      data['temp'] = temp!.toJson();
     }
-    if (this.feelsLike != null) {
-      data['feels_like'] = this.feelsLike!.toJson();
+    if (feelsLike != null) {
+      data['feels_like'] = feelsLike!.toJson();
     }
-    data['pressure'] = this.pressure;
-    data['humidity'] = this.humidity;
-    if (this.weather != null) {
-      data['weather'] = this.weather!.map((v) => v.toJson()).toList();
+    data['pressure'] = pressure;
+    data['humidity'] = humidity;
+    if (weather != null) {
+      data['weather'] = weather!.map((v) => v.toJson()).toList();
     }
-    data['speed'] = this.speed;
-    data['deg'] = this.deg;
-    data['clouds'] = this.clouds;
-    data['rain'] = this.rain;
+    data['speed'] = speed;
+    data['deg'] = deg;
+    data['clouds'] = clouds;
+    data['rain'] = rain;
     return data;
   }
 }
@@ -187,13 +187,13 @@ class Temp {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['day'] = this.day;
-    data['min'] = this.min;
-    data['max'] = this.max;
-    data['night'] = this.night;
-    data['eve'] = this.eve;
-    data['morn'] = this.morn;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['day'] = day;
+    data['min'] = min;
+    data['max'] = max;
+    data['night'] = night;
+    data['eve'] = eve;
+    data['morn'] = morn;
     return data;
   }
 }
@@ -214,11 +214,11 @@ class FeelsLike {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['day'] = this.day;
-    data['night'] = this.night;
-    data['eve'] = this.eve;
-    data['morn'] = this.morn;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['day'] = day;
+    data['night'] = night;
+    data['eve'] = eve;
+    data['morn'] = morn;
     return data;
   }
 }
@@ -239,11 +239,11 @@ class Weather {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['main'] = this.main;
-    data['description'] = this.description;
-    data['icon'] = this.icon;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['id'] = id;
+    data['main'] = main;
+    data['description'] = description;
+    data['icon'] = icon;
     return data;
   }
 }

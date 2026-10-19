@@ -155,8 +155,8 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
               ),
               items: _countries.map((country) {
                 return DropdownMenuItem<String>(
-                  child: Text(country),
                   value: country,
+                  child: Text(country),
                 );
               }).toList(),
                onChanged: (country) {
@@ -246,10 +246,10 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
   }
 
   String? _validateName(String? value) {
-    final _nameExp = RegExp(r'^[A-Za-z ]+$');
+    final nameExp = RegExp(r'^[A-Za-z ]+$');
     if (value == null || value.isEmpty) {
       return 'Name is reqired.';
-    } else if (!_nameExp.hasMatch(value)) {
+    } else if (!nameExp.hasMatch(value)) {
       return 'Please enter alphabetical characters.';
     } else {
       return null;
@@ -257,8 +257,8 @@ class _RegisterFormPageState extends State<RegisterFormPage> {
   }
 
   bool _validatePhoneNumber(String input) {
-    final _phoneExp = RegExp(r'^\(\d\d\d\)\d\d\d-\d\d\d\d$');
-    return _phoneExp.hasMatch(input);
+    final phoneExp = RegExp(r'^\(\d\d\d\)\d\d\d-\d\d\d\d$');
+    return phoneExp.hasMatch(input);
   }
 
   String? _validateEmail(String? value) {

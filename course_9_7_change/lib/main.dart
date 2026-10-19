@@ -64,7 +64,7 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 30),
             Switch(
               value: colorProvider.isSwitched,
-              activeColor: Colors.deepOrange,
+              activeThumbColor: Colors.deepOrange,
               onChanged: (value) {
                 colorProvider.toggleSwitch(value);
               },

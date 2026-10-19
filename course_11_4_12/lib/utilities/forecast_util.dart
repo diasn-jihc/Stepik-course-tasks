@@ -6,7 +6,7 @@ class Util {
     return DateFormat('EEE, MMM d, y').format(dateTime);
   }
 
-  static getItem(IconData iconData, int value, String units) {
+  static Column getItem(IconData iconData, int value, String units) {
     return Column(
       children: <Widget>[
         Icon(iconData, color: Colors.black87, size: 28.0),
@@ -17,7 +17,7 @@ class Util {
         ),
         SizedBox(height: 10.0),
         Text(
-          '$units',
+          units,
           style: TextStyle(fontSize: 15.0, color: Colors.black87),
         ),
       ],

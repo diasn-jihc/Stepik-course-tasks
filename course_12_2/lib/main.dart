@@ -6,6 +6,8 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(title: 'Flutter Demo', home: MyHomePage());
@@ -13,12 +15,14 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ColorBloc _bloc = ColorBloc();
+  final ColorBloc _bloc = ColorBloc();
 
   @override
   void dispose() {
@@ -29,10 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('BloC with Stream'), 
-        centerTitle: true
-    ),
+      appBar: AppBar(title: Text('BloC with Stream'), centerTitle: true),
       body: Center(
         child: StreamBuilder(
           stream: _bloc.outputStateStream,
@@ -53,14 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
           FloatingActionButton(
             backgroundColor: Colors.red,
             onPressed: () {
-              _bloc.inputEventSink.add(ColorEvent.event_red);
+              _bloc.inputEventSink.add(ColorEvent.eventRed);
             },
           ),
           SizedBox(width: 10),
           FloatingActionButton(
             backgroundColor: Colors.green,
             onPressed: () {
-              _bloc.inputEventSink.add(ColorEvent.event_green);
+              _bloc.inputEventSink.add(ColorEvent.eventGreen);
             },
           ),
         ],

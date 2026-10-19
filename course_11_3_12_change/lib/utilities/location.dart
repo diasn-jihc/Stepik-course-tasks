@@ -18,11 +18,14 @@ class Location {
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      throw Exception('Location permission denied forever.\n'
-          'Enable it in app settings or use the city search');
+      throw Exception(
+        'Location permission denied forever.\n'
+        'Enable it in app settings or use the city search',
+      );
     }
     final position = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.low);
+      desiredAccuracy: LocationAccuracy.low,
+    );
     latitude = position.latitude;
     longitude = position.longitude;
   }

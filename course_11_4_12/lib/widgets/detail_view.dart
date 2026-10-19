@@ -4,7 +4,6 @@ import 'package:course_11_3/models/weather_forecast_daily.dart';
 import 'package:course_11_3/utilities/forecast_util.dart';
 
 class DetailView extends StatelessWidget {
-
   final AsyncSnapshot<WeatherForecast> snapshot;
   const DetailView({super.key, required this.snapshot});
 
@@ -14,17 +13,18 @@ class DetailView extends StatelessWidget {
     var pressure = forecastList[0].pressure * 0.750062;
     var humidity = forecastList[0].humidity;
     var wind = forecastList[0].speed;
-    return Container(
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: <Widget>[
-          Util.getItem(FontAwesomeIcons.thermometerThreeQuarters, pressure.round(), 'mm Hg'),
-          Util.getItem(FontAwesomeIcons.cloudRain, humidity, '%'),
-          Util.getItem(FontAwesomeIcons.wind, wind.toInt(), 'm/s'),
-        ],
-      ),
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Util.getItem(
+          FontAwesomeIcons.thermometerThreeQuarters,
+          pressure.round(),
+          'mm Hg',
+        ),
+        Util.getItem(FontAwesomeIcons.cloudRain, humidity, '%'),
+        Util.getItem(FontAwesomeIcons.wind, wind.toInt(), 'm/s'),
+      ],
     );
   }
 }
-

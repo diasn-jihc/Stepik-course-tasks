@@ -29,7 +29,7 @@ class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
   void initState() {
     super.initState();
     SharedPreferences.getInstance()
-    ..then((prefs) {
+    .then((prefs) {
       if (!mounted) return;
       setState(() => _prefs = prefs);
       _loadNumberPref();
@@ -51,7 +51,7 @@ class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
             children: <TableRow>[
               TableRow(children: <Widget>[
                 Text('Number Preference'),
-                Text('${_numberPref}'),
+                Text('$_numberPref'),
                 ElevatedButton(
                   child: Text('Increment'),
                   onPressed: () => _setNumberPref(_numberPref + 1),
@@ -59,7 +59,7 @@ class _SharedPrefereceExampleState extends State<SharedPrefereceExample> {
               ]),
               TableRow(children: <Widget>[
                 Text('Boolean Preference'),
-                Text('${_boolPref}'),
+                Text('$_boolPref'),
                 ElevatedButton(
                   child: Text('Toogle'),
                   onPressed: () => _setBoolPref(!_boolPref),

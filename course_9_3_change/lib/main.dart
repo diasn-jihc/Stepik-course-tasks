@@ -105,7 +105,7 @@ class Counter extends StatelessWidget {
             '${rootWidgetState.counterValue}',
             style: Theme.of(context).textTheme.headlineMedium,
           ),
-          ButtonBar(
+          OverflowBar(
             children: <Widget>[
               IconButton(
                 icon: const Icon(Icons.remove),
@@ -129,10 +129,10 @@ class MyInheritedWidget extends InheritedWidget {
   final MyHomePageState myState;
 
   const MyInheritedWidget({
-    Key? key,
-    required Widget child,
+    super.key,
+    required super.child,
     required this.myState,
-  }) : super(key: key, child: child);
+  });
 
   @override
   bool updateShouldNotify(MyInheritedWidget oldWidget) {

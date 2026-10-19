@@ -13,8 +13,7 @@ class WeatherForecastScreen extends StatefulWidget {
   const WeatherForecastScreen({super.key, this.locationWeather});
 
   @override
-  State<WeatherForecastScreen> createState() =>
-      _WeatherForecastScreenState();
+  State<WeatherForecastScreen> createState() => _WeatherForecastScreenState();
 }
 
 class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
@@ -93,9 +92,10 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                   ],
                 );
               } else if (snapshot.hasError) {
-                final message = snapshot.error
-                    .toString()
-                    .replaceFirst('Exception: ', '');
+                final message = snapshot.error.toString().replaceFirst(
+                  'Exception: ',
+                  '',
+                );
 
                 return Padding(
                   padding: const EdgeInsets.all(24.0),
@@ -114,9 +114,7 @@ class _WeatherForecastScreenState extends State<WeatherForecastScreen> {
                 return const Padding(
                   padding: EdgeInsets.only(top: 100),
                   child: Center(
-                    child: CircularProgressIndicator(
-                      color: Color(0xFF0D9488),
-                    ),
+                    child: CircularProgressIndicator(color: Color(0xFF0D9488)),
                   ),
                 );
               }

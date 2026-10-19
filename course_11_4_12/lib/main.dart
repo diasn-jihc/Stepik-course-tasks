@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:course_11_3/screens/weather_forecast_screen.dart';
 
 void main() => runApp(const MyApp());
