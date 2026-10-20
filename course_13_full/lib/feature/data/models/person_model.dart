@@ -2,31 +2,19 @@ import 'package:course_13_full/feature/data/models/location_model.dart';
 import 'package:course_13_full/feature/domain/entities/person_entity.dart';
 
 class PersonModel extends PersonEntity {
-  PersonModel({
-    required int id,
-    required String name,
-    required String status,
-    required String species,
-    required String type,
-    required String gender,
-    required LocationEntity origin,
-    required LocationEntity location,
-    required String image,
-    required List<String> episode,
-    required DateTime created,
-  }) : super(
-    id: id,
-    name: name,
-    status: status,
-    species: species,
-    type: type,
-    gender: gender,
-    origin: origin,
-    location: location,
-    image: image,
-    episode: episode,
-    created: created,
-  );
+  const PersonModel({
+    required super.id,
+    required super.name,
+    required super.status,
+    required super.species,
+    required super.type,
+    required super.gender,
+    required super.origin,
+    required super.location,
+    required super.image,
+    required super.episode,
+    required super.created,
+  });
 
   factory PersonModel.fromJson(Map<String, dynamic> json) {
     return PersonModel(
@@ -36,8 +24,8 @@ class PersonModel extends PersonEntity {
       species: json['species'],
       type: json['type'],
       gender: json['gender'],
-      origin: json['origin'] != null ? LocationModel.fromJson(json['origin']) : null,
-      location: json['location'] != null ? LocationModel.fromJson(json['location']) : null,
+      origin: LocationModel.fromJson(json['origin'] as Map<String, dynamic>),
+      location: LocationModel.fromJson(json['location'] as Map<String, dynamic>),
       image: json['image'],
       episode: (json['episode'] as List<dynamic>).map((e) => e as String).toList(),
       created: DateTime.parse(json['created'] as String),
@@ -52,8 +40,8 @@ class PersonModel extends PersonEntity {
       'species': species,
       'type': type,
       'gender': gender,
-      'origin': origin == null ? null : LocationModel(name: origin.name, url: origin.url).toJson(),
-      'location': location == null ? null : LocationModel(name: location.name, url: location.url).toJson(),
+      'origin': LocationModel(name: origin.name, url: origin.url).toJson(),
+      'location': LocationModel(name: location.name, url: location.url).toJson(),
       'image': image,
       'episode': episode,
       'created': created.toIso8601String(),

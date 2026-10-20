@@ -4,8 +4,8 @@ import 'package:course_13_full/feature/domain/usecases/search_person.dart';
 import 'package:course_13_full/feature/presentation/bloc/search_bloc/search_event.dart';
 import 'package:course_13_full/feature/presentation/bloc/search_bloc/search_state.dart';
 
-const SERVER_FAILURE_MESSAGE = 'Server Failure';
-const CACHED_FAILURE_MESSAGE = 'Cache Failure';
+const serverFailureMessage = 'Server Failure';
+const cachedFailureMessage = 'Cache Failure';
 
 class PersonSearchBloc extends Bloc<PersonSearchEvent, PersonSearchState> {
   final SearchPerson searchPerson;
@@ -24,9 +24,9 @@ class PersonSearchBloc extends Bloc<PersonSearchEvent, PersonSearchState> {
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case ServerFailure:
-        return SERVER_FAILURE_MESSAGE;
+        return serverFailureMessage;
       case CacheFailure:
-        return CACHED_FAILURE_MESSAGE;
+        return cachedFailureMessage;
       default:
         return 'Unexpected Error';
     }

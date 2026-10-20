@@ -1,7 +1,7 @@
 import 'package:course_13_full/feature/domain/entities/person_entity.dart';
 
 class LocationModel extends LocationEntity {
-  LocationModel({required String name, required String url}) : super(name: name, url: url);
+  const LocationModel({required super.name, required super.url});
 
   factory LocationModel.fromJson(Map<String, dynamic> json) {
     return LocationModel(
