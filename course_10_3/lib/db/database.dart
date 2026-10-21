@@ -22,7 +22,8 @@ class DBProvider {
 
   Future<Database> _initDB() async {
     Directory dir = await getApplicationDocumentsDirectory();
-    String path = '${dir.path}Student.db';
+    // Keep the database inside the documents directory on Windows and Android.
+    final path = '${dir.path}${Platform.pathSeparator}Student.db';
     return await openDatabase(path, version: 1, onCreate: _createDB);
   }
 

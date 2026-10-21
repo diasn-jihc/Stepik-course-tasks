@@ -1,8 +1,21 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:course_10_3/db/database.dart';
 import 'package:course_10_3/model/student.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-void main() => runApp(const MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // sqflite uses native platform APIs on mobile; desktop needs the FFI factory.
+  if (Platform.isWindows || Platform.isLinux || Platform.isMacOS) {
+    sqfliteFfiInit();
+    databaseFactory = databaseFactoryFfi;
+  }
+
+  runApp(const MyApp());
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -151,13 +164,17 @@ class _StudentPageState extends State<StudentPage> {
             child: FutureBuilder(
               future: _studentsList,
               builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return generateList(snapshot.data as List<Student>);
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
                 }
-                if (snapshot.data == null || (snapshot.data as List<Student>).isEmpty) {
-                  return Text('No Data Found');
+                if (snapshot.hasError) {
+                  return Center(child: Text('Database error: ${snapshot.error}'));
                 }
-                return CircularProgressIndicator();
+                final students = snapshot.data ?? <Student>[];
+                if (students.isEmpty) {
+                  return const Center(child: Text('No Data Found'));
+                }
+                return generateList(students);
               },
             ),
           ),

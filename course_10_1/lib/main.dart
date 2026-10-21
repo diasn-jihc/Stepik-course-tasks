@@ -39,10 +39,24 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
   @override
   void initState() {
     super.initState();
-    _readTextFromLocalFile();
-    _getLocalFile.then((file) {
-      if (mounted) setState(() => _localFilePath = file.path);
-    });
+    _loadInitialFile();
+  }
+
+  Future<void> _loadInitialFile() async {
+    try {
+      final file = await _getLocalFile;
+      // Create the file on first launch so Load starts with an empty document.
+      if (!await file.exists()) await file.create(recursive: true);
+      final content = await file.readAsString();
+      if (!mounted) return;
+      setState(() {
+        _localFilePath = file.path;
+        _localFileContent = content;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _localFileContent = 'Error loading local file: $e');
+    }
   }
 
   @override
@@ -71,17 +85,26 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
                   if (!context.mounted) return;
                   _textController.text = _localFileContent;
                   FocusScope.of(context).requestFocus(_textFieldFocusNode);
-                  log('String successfuly laoded from local file');
+                  log('Text successfully loaded from local file');
                 },
               ),
               MaterialButton(
                 child: Text('Save', style: TextStyle(fontSize: 20)),
                 onPressed: () async {
-                  await _writeTextToLocalFile(_textController.text);
-                  if (!context.mounted) return;
-                  _textController.clear();
-                  await _readTextFromLocalFile();
-                  log('String successfuly written to local file');
+                  try {
+                    await _writeTextToLocalFile(_textController.text);
+                    if (!context.mounted) return;
+                    await _readTextFromLocalFile();
+                    log('Text successfully written to local file');
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Saved successfully')),
+                    );
+                  } catch (e) {
+                    if (!context.mounted) return;
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Could not save file: $e')),
+                    );
+                  }
                 },
               ),
             ],
@@ -113,14 +136,17 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
   }
 
   Future<void> _readTextFromLocalFile() async {
-    late final String content;
     try {
       final file = await _getLocalFile;
-      content = await file.readAsString();
+      final content = await file.exists() ? await file.readAsString() : '';
+      if (!mounted) return;
+      setState(() {
+        _localFilePath = file.path;
+        _localFileContent = content;
+      });
     } catch(e) {
-      content = 'Error loading local file: $e';
+      if (!mounted) return;
+      setState(() => _localFileContent = 'Error loading local file: $e');
     }
-    if (!mounted) return;
-    setState(() => _localFileContent = content);
   }
 }
