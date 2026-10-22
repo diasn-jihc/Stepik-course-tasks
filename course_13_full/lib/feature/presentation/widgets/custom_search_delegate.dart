@@ -89,7 +89,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    if (query.length > 0) {
+    if (query.isNotEmpty) {
       return Container();
     }
 
