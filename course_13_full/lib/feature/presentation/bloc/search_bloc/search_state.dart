@@ -24,7 +24,7 @@ class PersonSearchLoaded extends PersonSearchState {
 class PersonSearchError extends PersonSearchState {
   final String message;
 
-  PersonSearchError({required this.message});
+  const PersonSearchError({required this.message});
 
   @override
   List<Object> get props => [message];
