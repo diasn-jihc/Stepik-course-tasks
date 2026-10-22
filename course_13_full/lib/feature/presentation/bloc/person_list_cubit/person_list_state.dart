@@ -9,6 +9,7 @@ abstract class PersonState extends Equatable {
 }
 
 class PersonEmpty extends PersonState {
+  const PersonEmpty();
   @override
   List<Object> get props => [];
 }
