@@ -3,6 +3,7 @@ import 'package:course_13_full/feature/presentation/widgets/custom_search_delega
 import 'package:course_13_full/feature/presentation/widgets/persons_list_widget.dart';
 
 class HomePage extends StatelessWidget {
+  const HomePage({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
