@@ -40,7 +40,7 @@ class PersonListCubit extends Cubit<PersonState> {
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
-      case ServerFailure:
+      case ServerFailure():
         return serverFailureMessage;
       case CacheFailure:
         return cachedFailureMessage;
