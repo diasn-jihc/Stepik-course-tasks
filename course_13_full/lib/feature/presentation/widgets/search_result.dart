@@ -6,7 +6,7 @@ import 'package:course_13_full/feature/presentation/widgets/person_cache_image_w
 class SearchResult extends StatelessWidget {
   final PersonEntity personResult;
 
-  SearchResult({required this.personResult});
+  const SearchResult({super.key, required this.personResult});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +30,8 @@ class SearchResult extends StatelessWidget {
             SizedBox(
               height: 300,
               width: double.infinity,
-              child: Container(
-                child: PersonCacheImage(
-                  imageUrl: personResult.image,
-                ),
+              child: PersonCacheImage(
+                imageUrl: personResult.image,
               ),
             ),
             Padding(
