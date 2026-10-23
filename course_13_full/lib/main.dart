@@ -4,7 +4,7 @@ import 'package:course_13_full/common/app_colors.dart';
 import 'package:course_13_full/feature/presentation/bloc/person_list_cubit/person_list_cubit.dart';
 import 'package:course_13_full/feature/presentation/bloc/search_bloc/search_bloc.dart';
 import 'package:course_13_full/locator_service.dart' as di;
-
+  
 import 'feature/presentation/pages/person_screen.dart';
 import 'locator_service.dart';
 
