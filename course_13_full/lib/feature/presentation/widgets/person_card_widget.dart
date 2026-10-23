@@ -27,12 +27,10 @@ class PersonCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              child: PersonCacheImage(
-                width: 166,
-                height: 166,
-                imageUrl: person.image,
-              ),
+            PersonCacheImage(
+              width: 166,
+              height: 166,
+              imageUrl: person.image,
             ),
             const SizedBox(
               width: 16,
