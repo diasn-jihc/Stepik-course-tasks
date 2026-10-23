@@ -95,6 +95,7 @@ class _ReadWriteFileExampleState extends State<ReadWriteFileExample> {
                     await _writeTextToLocalFile(_textController.text);
                     if (!context.mounted) return;
                     await _readTextFromLocalFile();
+                    if (!context.mounted) return;
                     log('Text successfully written to local file');
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Saved successfully')),
