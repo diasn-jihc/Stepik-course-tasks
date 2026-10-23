@@ -39,7 +39,7 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildResults(BuildContext context) {
-    BlocProvider.of<PersonSearchBloc>(context, listen: false)..add(SearchPersons(query));
+    BlocProvider.of<PersonSearchBloc>(context, listen: false).add(SearchPersons(query));
 
     return BlocBuilder<PersonSearchBloc, PersonSearchState>(
       builder: (context, state) {
@@ -52,14 +52,12 @@ class CustomSearchDelegate extends SearchDelegate {
           if (person.isEmpty) {
             return _showErrorText('No Characters with that name found');
           }
-          return Container(
-            child: ListView.builder(
-              itemCount: person.isNotEmpty ? person.length : 0,
-              itemBuilder: (context, int index) {
-                PersonEntity result = person[index];
-                return SearchResult(personResult: result);
-              },
-            ),
+          return ListView.builder(
+            itemCount: person.length,
+            itemBuilder: (context, int index) {
+              PersonEntity result = person[index];
+              return SearchResult(personResult: result);
+            },
           );
         } else if (state is PersonSearchError) {
           return _showErrorText(state.message);
