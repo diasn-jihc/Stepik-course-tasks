@@ -28,6 +28,18 @@ class PersonRepositoryImpl implements PersonRepository {
 
   @override
   Future<Either<Failure, List<PersonEntity>>> searchPerson(String query) async {
+    if (!await networkInfo.isConnected) {
+      try {
+        final cachedPersons = await localDataSource.getLastPersonsFromCache();
+        final normalizedQuery = query.trim().toLowerCase();
+        return Right(cachedPersons
+            .where((person) => person.name.toLowerCase().contains(normalizedQuery))
+            .toList());
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
+
     return await _getPersons(() {
       return remoteDataSource.searchPerson(query);
     });
