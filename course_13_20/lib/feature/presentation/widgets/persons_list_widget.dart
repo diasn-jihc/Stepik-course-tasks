@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:course_13_full/feature/domain/entities/person_entity.dart';
@@ -7,25 +5,37 @@ import 'package:course_13_full/feature/presentation/bloc/person_list_cubit/perso
 import 'package:course_13_full/feature/presentation/bloc/person_list_cubit/person_list_state.dart';
 import 'package:course_13_full/feature/presentation/widgets/person_card_widget.dart';
 
-class PersonsList extends StatelessWidget {
-  final scrollController = ScrollController();
-  final int page = -1;
+class PersonsList extends StatefulWidget {
+  const PersonsList({super.key});
 
-  PersonsList({Key? key}) : super(key: key);
-  void setupScrollController(BuildContext context) {
-    scrollController.addListener(() {
-      if (scrollController.position.atEdge) {
-        if (scrollController.position.pixels != 0) {
-          context.read<PersonListCubit>().loadPerson();
-        }
-      }
-    });
+  @override
+  State<PersonsList> createState() => _PersonsListState();
+}
+
+class _PersonsListState extends State<PersonsList> {
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(_loadMoreWhenNeeded);
+  }
+
+  void _loadMoreWhenNeeded() {
+    if (_scrollController.hasClients &&
+        _scrollController.position.extentAfter < 300) {
+      context.read<PersonListCubit>().loadPerson();
+    }
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    setupScrollController(context);
-
     return BlocBuilder<PersonListCubit, PersonState>(builder: (context, state) {
       List<PersonEntity> persons = [];
       bool isLoading = false;
@@ -44,15 +54,11 @@ class PersonsList extends StatelessWidget {
         );
       }
       return ListView.separated(
-        controller: scrollController,
+        controller: _scrollController,
         itemBuilder: (context, index) {
           if (index < persons.length) {
             return PersonCard(person: persons[index]);
           } else {
-            Timer(const Duration(milliseconds: 30), () {
-              scrollController
-                  .jumpTo(scrollController.position.maxScrollExtent);
-            });
             return _loadingIndicator();
           }
         },
