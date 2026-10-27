@@ -21,7 +21,7 @@ class PersonLoading extends PersonState {
   const PersonLoading(this.oldPersonsList, {this.isFirstFetch = false});
 
   @override
-  List<Object> get props => [oldPersonsList];
+  List<Object> get props => [oldPersonsList, isFirstFetch];
 
 }
 
