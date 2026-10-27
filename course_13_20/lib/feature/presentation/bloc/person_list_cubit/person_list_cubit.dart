@@ -14,7 +14,7 @@ class PersonListCubit extends Cubit<PersonState> {
 
   int page = 1;
 
-  void loadPerson() async {
+  Future<void> loadPerson() async {
     if (state is PersonLoading) return;
 
     final currentState = state;
@@ -22,20 +22,31 @@ class PersonListCubit extends Cubit<PersonState> {
     var oldPerson = <PersonEntity>[];
     if (currentState is PersonLoaded) {
       oldPerson = currentState.personsList;
+    } else if (currentState is PersonError) {
+      oldPerson = currentState.oldPersonsList;
     }
 
     emit(PersonLoading(oldPerson, isFirstFetch: page == 1));
 
-    final failureOrPerson = await getAllPersons(PagePersonParams(page: page));
+    try {
+      final failureOrPerson = await getAllPersons(PagePersonParams(page: page));
 
-    failureOrPerson.fold((error) => emit(PersonError(message: _mapFailureToMessage(error))), (character) {
-      page++;
-      final persons = [
-        ...(state as PersonLoading).oldPersonsList,
-        ...character,
-      ];
-      emit(PersonLoaded(persons));
-    });
+      failureOrPerson.fold(
+        (error) => emit(PersonError(
+          message: _mapFailureToMessage(error),
+          oldPersonsList: oldPerson,
+        )),
+        (character) {
+          page++;
+          emit(PersonLoaded([...oldPerson, ...character]));
+        },
+      );
+    } catch (_) {
+      emit(PersonError(
+        message: 'Unable to load characters. Check your connection and retry.',
+        oldPersonsList: oldPerson,
+      ));
+    }
   }
 
   String _mapFailureToMessage(Failure failure) {

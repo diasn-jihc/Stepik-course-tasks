@@ -36,9 +36,10 @@ class PersonLoaded extends PersonState {
 
 class PersonError extends PersonState {
   final String message;
+  final List<PersonEntity> oldPersonsList;
 
-  const PersonError({required this.message});
+  const PersonError({required this.message, this.oldPersonsList = const []});
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, oldPersonsList];
 }

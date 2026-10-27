@@ -39,6 +39,7 @@ class _PersonsListState extends State<PersonsList> {
     return BlocBuilder<PersonListCubit, PersonState>(builder: (context, state) {
       List<PersonEntity> persons = [];
       bool isLoading = false;
+      String? errorMessage;
 
       if (state is PersonLoading && state.isFirstFetch) {
         return _loadingIndicator();
@@ -48,16 +49,19 @@ class _PersonsListState extends State<PersonsList> {
       } else if (state is PersonLoaded) {
         persons = state.personsList;
       } else if (state is PersonError) {
-        return Text(
-          state.message,
-          style: const TextStyle(color: Colors.white, fontSize: 25),
-        );
+        persons = state.oldPersonsList;
+        errorMessage = state.message;
       }
       return ListView.separated(
         controller: _scrollController,
         itemBuilder: (context, index) {
           if (index < persons.length) {
             return PersonCard(person: persons[index]);
+          } else if (errorMessage != null) {
+            return TextButton(
+              onPressed: () => context.read<PersonListCubit>().loadPerson(),
+              child: Text(errorMessage!),
+            );
           } else {
             return _loadingIndicator();
           }
@@ -67,7 +71,7 @@ class _PersonsListState extends State<PersonsList> {
             color: Colors.grey[400],
           );
         },
-        itemCount: persons.length + (isLoading ? 1 : 0),
+        itemCount: persons.length + (isLoading || errorMessage != null ? 1 : 0),
       );
     });
   }
