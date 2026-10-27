@@ -1,9 +1,6 @@
-// import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
-import 'package:webview_flutter_plus/webview_flutter_plus.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 enum MenuOptions {
   clearCache,
@@ -18,7 +15,39 @@ class WebViewLocalPage extends StatefulWidget {
 }
 
 class _WebViewLocalPageState extends State<WebViewLocalPage> {
-  late WebViewPlusController _webController;
+  late final WebViewController _webController;
+
+  @override
+  void initState() {
+    super.initState();
+    _webController = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel(
+        'MyJSChannel',
+        onMessageReceived: (message) async {
+          log('Javascript: ${message.message}');
+          await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              content: Text(
+                message.message,
+                style: const TextStyle(fontSize: 35),
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    _webController.runJavaScriptReturningResult('sendOK()');
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                )
+              ],
+            ),
+          );
+        },
+      )
+      ..loadFlutterAsset('assets/index.html');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,42 +55,7 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
       appBar: AppBar(
         title: const Text('WebView Local'),
       ),
-      body: WebViewPlus(
-        javascriptMode: JavascriptMode.unrestricted,
-        initialUrl: 'assets/index.html',
-        onWebViewCreated: (controller) {
-          _webController = controller;
-          // loadLocalHTML();
-        },
-        javascriptChannels: {
-          JavascriptChannel(
-            name: 'MyJSChannel',
-            onMessageReceived: (message) async {
-              log('Javascript: ${message.message}');
-              await showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  content: Text(
-                    message.message,
-                    style: const TextStyle(fontSize: 35),
-                  ),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        _webController.webViewController.runJavascriptReturningResult(
-                          'sendOK()',
-                        );
-                        Navigator.pop(context);
-                      },
-                      child: const Text('Хорошо'),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
-        },
-      ),
+      body: WebViewWidget(controller: _webController),
     );
   }
 
