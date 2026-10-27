@@ -3,17 +3,17 @@ import 'package:course_13_full/feature/domain/entities/person_entity.dart';
 
 class PersonModel extends PersonEntity {
   const PersonModel({
-    required id,
-    required name,
-    required status,
-    required species,
-    required type,
-    required gender,
-    required origin,
-    required location,
-    required image,
-    required episode,
-    required created,
+    required int id,
+    required String name,
+    required String status,
+    required String species,
+    required String type,
+    required String gender,
+    required LocationEntity origin,
+    required LocationEntity location,
+    required String image,
+    required List<String> episode,
+    required DateTime created,
   }) : super(
           id: id,
           name: name,
