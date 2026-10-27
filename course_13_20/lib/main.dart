@@ -7,7 +7,6 @@ import 'package:course_13_full/feature/presentation/bloc/search_bloc/search_bloc
 import 'package:course_13_full/locator_service.dart' as di;
 
 import 'feature/presentation/pages/person_screen.dart';
-import 'locator_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,9 +22,9 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<PersonListCubit>(
-            create: (context) => sl<PersonListCubit>()..loadPerson()),
+            create: (context) => di.sl<PersonListCubit>()..loadPerson()),
         BlocProvider<PersonSearchBloc>(
-            create: (context) => sl<PersonSearchBloc>()),
+            create: (context) => di.sl<PersonSearchBloc>()),
       ],
       child: MaterialApp(
         theme: ThemeData.dark().copyWith(
