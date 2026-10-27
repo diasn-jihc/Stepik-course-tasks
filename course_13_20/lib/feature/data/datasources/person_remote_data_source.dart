@@ -29,10 +29,21 @@ class PersonRemoteDataSourceImpl implements PersonRemoteDataSource {
     final response = await client
         .get(url, headers: {'Content-Type': 'application/json'});
     if (response.statusCode == 200) {
-      final persons = json.decode(response.body);
-      return (persons['results'] as List)
-          .map((person) => PersonModel.fromJson(person))
-          .toList();
+      try {
+        final body = json.decode(response.body);
+        if (body is! Map<String, dynamic> || body['results'] is! List) {
+          throw ServerException();
+        }
+        return (body['results'] as List)
+            .map((person) => PersonModel.fromJson(
+                  person as Map<String, dynamic>,
+                ))
+            .toList();
+      } on FormatException {
+        throw ServerException();
+      } on TypeError {
+        throw ServerException();
+      }
     } else {
       throw ServerException();
     }
