@@ -10,7 +10,7 @@ abstract class PersonLocalDataSource {
   Future<List<PersonModel>> getLastPersonsFromCache();
   Future<void> personsToCache(List<PersonModel> persons);
 }
-const CACHED_PERSONS_LIST = 'CACHED_PERSONS_LIST';
+const cachedPersonsListKey = 'CACHED_PERSONS_LIST';
 
 class PersonLocalDataSourceImpl implements PersonLocalDataSource {
   final SharedPreferences sharedPreferences;
@@ -20,9 +20,8 @@ class PersonLocalDataSourceImpl implements PersonLocalDataSource {
   @override
   Future<List<PersonModel>> getLastPersonsFromCache() async {
     final jsonPersonsList =
-        sharedPreferences.getStringList(CACHED_PERSONS_LIST);
+        sharedPreferences.getStringList(cachedPersonsListKey);
     if (jsonPersonsList != null && jsonPersonsList.isNotEmpty) {
-      print('Get Persons from Cache: ${jsonPersonsList.length}');
       return jsonPersonsList
           .map((person) => PersonModel.fromJson(json.decode(person)))
           .toList();
@@ -36,7 +35,6 @@ class PersonLocalDataSourceImpl implements PersonLocalDataSource {
     final List<String> jsonPersonsList =
         persons.map((person) => json.encode(person.toJson())).toList();
 
-    await sharedPreferences.setStringList(CACHED_PERSONS_LIST, jsonPersonsList);
-    print('Persons to write Cache: ${jsonPersonsList.length}');
+    await sharedPreferences.setStringList(cachedPersonsListKey, jsonPersonsList);
   }
 }

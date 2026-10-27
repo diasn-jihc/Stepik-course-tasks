@@ -6,7 +6,7 @@ import 'package:course_13_full/feature/presentation/widgets/person_cache_image_w
 class SearchResult extends StatelessWidget {
   final PersonEntity personResult;
 
-  const SearchResult({Key? key, required this.personResult}) : super(key: key);
+  const SearchResult({super.key, required this.personResult});
 
   @override
   Widget build(BuildContext context) {

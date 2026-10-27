@@ -7,7 +7,7 @@ import 'package:course_13_full/feature/presentation/widgets/person_cache_image_w
 class PersonCard extends StatelessWidget {
   final PersonEntity person;
 
-  const PersonCard({Key? key, required this.person}) : super(key: key);
+  const PersonCard({super.key, required this.person});
 
   @override
   Widget build(BuildContext context) {

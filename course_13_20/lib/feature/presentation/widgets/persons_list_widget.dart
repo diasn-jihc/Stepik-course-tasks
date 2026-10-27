@@ -60,7 +60,7 @@ class _PersonsListState extends State<PersonsList> {
           } else if (errorMessage != null) {
             return TextButton(
               onPressed: () => context.read<PersonListCubit>().loadPerson(),
-              child: Text(errorMessage!),
+              child: Text(errorMessage),
             );
           } else {
             return _loadingIndicator();
