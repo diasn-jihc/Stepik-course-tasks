@@ -9,7 +9,7 @@ enum MenuOptions {
 }
 
 class WebViewPage extends StatefulWidget {
-  const WebViewPage({Key? key}) : super(key: key);
+  const WebViewPage({super.key});
 
   @override
   State<WebViewPage> createState() => _WebViewPageState();
@@ -21,15 +21,16 @@ class _WebViewPageState extends State<WebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
         if (await _webController.canGoBack()) {
           _webController.goBack();
         } else {
           log('Нет записи в истории');
         }
 
-        return false;
       },
       child: Scaffold(
         appBar: AppBar(
