@@ -2,11 +2,6 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-enum MenuOptions {
-  clearCache,
-  clearCookies,
-}
-
 class WebViewLocalPage extends StatefulWidget {
   const WebViewLocalPage({super.key});
 
@@ -26,6 +21,7 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
         'MyJSChannel',
         onMessageReceived: (message) async {
           log('Javascript: ${message.message}');
+          if (!mounted) return;
           await showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -35,12 +31,15 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
               ),
               actions: [
                 TextButton(
-                  onPressed: () {
-                    _webController.runJavaScriptReturningResult('sendOK()');
+                  onPressed: () async {
+                    await _webController.runJavaScriptReturningResult(
+                      'sendOK()',
+                    );
+                    if (!context.mounted) return;
                     Navigator.pop(context);
                   },
                   child: const Text('OK'),
-                )
+                ),
               ],
             ),
           );
@@ -52,9 +51,7 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('WebView Local'),
-      ),
+      appBar: AppBar(title: const Text('WebView Local')),
       body: WebViewWidget(controller: _webController),
     );
   }
