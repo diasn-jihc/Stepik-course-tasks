@@ -3,10 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-enum MenuOptions {
-  clearCache,
-  clearCookies,
-}
+enum MenuOptions { clearCache, clearCookies }
 
 class WebViewPage extends StatefulWidget {
   const WebViewPage({super.key});
@@ -16,8 +13,8 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends State<WebViewPage> {
-  late WebViewController _webController;
-  double progress = 0;
+  late final WebViewController _webController;
+  double _progress = 0;
 
   bool isSubmitting = false;
 
@@ -28,11 +25,10 @@ class _WebViewPageState extends State<WebViewPage> {
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
         if (await _webController.canGoBack()) {
-          _webController.goBack();
+          await _webController.goBack();
         } else {
           log('Нет записи в истории');
         }
-
       },
       child: Scaffold(
         appBar: AppBar(
@@ -42,7 +38,7 @@ class _WebViewPageState extends State<WebViewPage> {
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () async {
                 if (await _webController.canGoBack()) {
-                  _webController.goBack();
+                  await _webController.goBack();
                 } else {
                   log('Нет записи в истории');
                 }
@@ -53,7 +49,7 @@ class _WebViewPageState extends State<WebViewPage> {
               icon: const Icon(Icons.arrow_forward_ios),
               onPressed: () async {
                 if (await _webController.canGoForward()) {
-                  _webController.goForward();
+                  await _webController.goForward();
                 } else {
                   log('Нет записи в истории');
                 }
@@ -89,7 +85,7 @@ class _WebViewPageState extends State<WebViewPage> {
         body: Column(
           children: [
             LinearProgressIndicator(
-              value: progress,
+              value: _progress,
               color: Colors.red,
               backgroundColor: Colors.black,
             ),
@@ -101,8 +97,9 @@ class _WebViewPageState extends State<WebViewPage> {
                   _webController = controller;
                 },
                 onProgress: (progress) {
-                  this.progress = progress / 100;
-                  setState(() {});
+                  if (mounted) {
+                    setState(() => _progress = progress / 100);
+                  }
                 },
                 onPageStarted: (url) {
                   log('Новый сайт: $url');
@@ -151,9 +148,7 @@ class _WebViewPageState extends State<WebViewPage> {
 
             await Future.delayed(const Duration(seconds: 1));
             isSubmitting = true;
-            await _webController.runJavascript(
-              "document.forms[0].submit()",
-            );
+            await _webController.runJavascript("document.forms[0].submit()");
             // final currentUrl = await _webController.currentUrl();
             // log('Предыдущий сайт: $currentUrl');
             // _webController.loadUrl('https://www.youtube.com');
