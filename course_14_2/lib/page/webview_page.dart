@@ -3,10 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-enum MenuOptions {
-  clearCache,
-  clearCookies,
-}
+enum MenuOptions { clearCache, clearCookies }
 
 class WebViewPage extends StatefulWidget {
   const WebViewPage({super.key});
@@ -30,7 +27,6 @@ class _WebViewPageState extends State<WebViewPage> {
         } else {
           log('Нет записи в истории');
         }
-
       },
       child: Scaffold(
         appBar: AppBar(
@@ -44,7 +40,6 @@ class _WebViewPageState extends State<WebViewPage> {
                 } else {
                   log('Нет записи в истории');
                 }
-                return;
               },
             ),
             IconButton(
@@ -55,7 +50,6 @@ class _WebViewPageState extends State<WebViewPage> {
                 } else {
                   log('Нет записи в истории');
                 }
-                return;
               },
             ),
             IconButton(
