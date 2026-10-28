@@ -19,7 +19,7 @@ class _WebViewPageState extends State<WebViewPage> {
   late WebViewController _webController;
   double progress = 0;
 
-  late bool isSubmitting;
+  bool isSubmitting = false;
 
   @override
   Widget build(BuildContext context) {
