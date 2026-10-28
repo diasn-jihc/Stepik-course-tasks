@@ -46,7 +46,7 @@ class _WebViewPageState extends State<WebViewPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.next_plan, size: 32),
-        onPressed: () async {},
+        onPressed: () => _controller.loadUrl('https://www.youtube.com'),
       ),
     );
   }
