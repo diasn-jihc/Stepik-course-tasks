@@ -1,9 +1,15 @@
-
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewPage extends StatelessWidget {
+class WebViewPage extends StatefulWidget {
   const WebViewPage({super.key});
+
+  @override
+  State<WebViewPage> createState() => _WebViewPageState();
+}
+
+class _WebViewPageState extends State<WebViewPage> {
+  late WebViewController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,20 +25,18 @@ class WebViewPage extends StatelessWidget {
             icon: const Icon(Icons.arrow_forward_ios),
             onPressed: () async {},
           ),
-          IconButton(
-            icon: const Icon(Icons.replay),
-            onPressed: () {},
-          ),
+          IconButton(icon: const Icon(Icons.replay), onPressed: () {}),
         ],
       ),
-      body: const WebView(
+      body: WebView(
         javascriptMode: JavascriptMode.unrestricted,
         initialUrl: 'http://info.cern.ch',
-        ),
+        onWebViewCreated: (controller) => _controller = controller,
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.next_plan, size: 32),
         onPressed: () async {},
       ),
     );
   }
-} 
+}
