@@ -18,8 +18,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
       emit(const CounterState.loaded(counter: 0));
     });
     on<CounterIncrementEvent>((event, emit) async {
-      if (state is _CounterLoadedState) {
-        final counter = (state as _CounterLoadedState).counter;
+      if (state case _CounterLoadedState(:final counter)) {
         emit(const CounterState.loading());
         await Future.delayed(const Duration(milliseconds: 500));
         emit(CounterState.loaded(counter: counter + 1));
