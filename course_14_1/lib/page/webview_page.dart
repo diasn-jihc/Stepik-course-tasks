@@ -19,7 +19,11 @@ class _WebViewPageState extends State<WebViewPage> {
         actions: [
           IconButton(
             icon: const Icon(Icons.arrow_back_ios),
-            onPressed: () async {},
+          onPressed: () async {
+            if (await _controller.canGoBack()) {
+              await _controller.goBack();
+            }
+          },
           ),
           IconButton(
             icon: const Icon(Icons.arrow_forward_ios),
