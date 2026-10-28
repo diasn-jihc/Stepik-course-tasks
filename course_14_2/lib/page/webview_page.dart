@@ -99,8 +99,9 @@ class _WebViewPageState extends State<WebViewPage> {
                   _webController = controller;
                 },
                 onProgress: (progress) {
-                  _progress = progress / 100;
-                  setState(() {});
+                  if (mounted) {
+                    setState(() => _progress = progress / 100);
+                  }
                 },
               ),
             ),
