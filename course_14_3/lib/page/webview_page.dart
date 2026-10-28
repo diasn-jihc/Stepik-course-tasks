@@ -40,7 +40,7 @@ class _WebViewPageState extends State<WebViewPage> {
               icon: const Icon(Icons.arrow_back_ios),
               onPressed: () async {
                 if (await _webController.canGoBack()) {
-                  _webController.goBack();
+                  await _webController.goBack();
                 } else {
                   log('Нет записи в истории');
                 }
@@ -51,7 +51,7 @@ class _WebViewPageState extends State<WebViewPage> {
               icon: const Icon(Icons.arrow_forward_ios),
               onPressed: () async {
                 if (await _webController.canGoForward()) {
-                  _webController.goForward();
+                  await _webController.goForward();
                 } else {
                   log('Нет записи в истории');
                 }
