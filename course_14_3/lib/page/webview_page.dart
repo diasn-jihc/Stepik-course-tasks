@@ -16,8 +16,8 @@ class WebViewPage extends StatefulWidget {
 }
 
 class _WebViewPageState extends State<WebViewPage> {
-  late WebViewController _webController;
-  double progress = 0;
+  late final WebViewController _webController;
+  double _progress = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class _WebViewPageState extends State<WebViewPage> {
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
         if (await _webController.canGoBack()) {
-          _webController.goBack();
+          await _webController.goBack();
         } else {
           log('Нет записи в истории');
         }
@@ -87,7 +87,7 @@ class _WebViewPageState extends State<WebViewPage> {
         body: Column(
           children: [
             LinearProgressIndicator(
-              value: progress,
+              value: _progress,
               color: Colors.red,
               backgroundColor: Colors.black,
             ),
@@ -99,8 +99,9 @@ class _WebViewPageState extends State<WebViewPage> {
                   _webController = controller;
                 },
                 onProgress: (progress) {
-                  this.progress = progress / 100;
-                  setState(() {});
+                  if (mounted) {
+                    setState(() => _progress = progress / 100);
+                  }
                 },
                 onPageStarted: (url) {
                   log('Новый сайт: $url');
