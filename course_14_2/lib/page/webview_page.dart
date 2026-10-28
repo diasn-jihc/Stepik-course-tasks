@@ -17,7 +17,7 @@ class WebViewPage extends StatefulWidget {
 
 class _WebViewPageState extends State<WebViewPage> {
   late final WebViewController _webController;
-  double progress = 0;
+  double _progress = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +87,7 @@ class _WebViewPageState extends State<WebViewPage> {
         body: Column(
           children: [
             LinearProgressIndicator(
-              value: progress,
+              value: _progress,
               color: Colors.red,
               backgroundColor: Colors.black,
             ),
@@ -99,7 +99,7 @@ class _WebViewPageState extends State<WebViewPage> {
                   _webController = controller;
                 },
                 onProgress: (progress) {
-                  this.progress = progress / 100;
+                  _progress = progress / 100;
                   setState(() {});
                 },
               ),
