@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'object_key_example.dart';
+import 'package:course_16_5/object_key_example.dart';
 
 void main() {
   runApp(const MyApp());
