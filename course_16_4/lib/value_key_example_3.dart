@@ -10,7 +10,7 @@ class ValueKeyExample3 extends StatefulWidget {
 class ValueKeyExample3State extends State<ValueKeyExample3> {
   // Generate dummy data for the list view
   final List<String> _elements =
-      List.generate(100, (index) => 'Element ${index.toString()}');
+      List.generate(100, (index) => 'Element $index');
 
   @override
   Widget build(BuildContext context) {
