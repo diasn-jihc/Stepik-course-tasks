@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'helper.dart';
 
 class GlobalKeyExampleTwo extends StatefulWidget {
-  const GlobalKeyExampleTwo({Key? key}) : super(key: key);
+  const GlobalKeyExampleTwo({super.key});
 
   @override
-  _GlobalKeyExampleTwoState createState() => _GlobalKeyExampleTwoState();
+  State<GlobalKeyExampleTwo> createState() => _GlobalKeyExampleTwoState();
 }
 
 class _GlobalKeyExampleTwoState extends State<GlobalKeyExampleTwo> {
@@ -55,16 +55,16 @@ class _GlobalKeyExampleTwoState extends State<GlobalKeyExampleTwo> {
             const SizedBox(height: 24),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.grey[700],
+                backgroundColor: Colors.grey[700],
                 minimumSize: const Size.fromHeight(40),
               ),
+              onPressed: submit,
               child: const FittedBox(
                 child: Text(
                   'Login',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
-              onPressed: submit,
             ),
           ],
         ),
@@ -86,16 +86,16 @@ class _GlobalKeyExampleTwoState extends State<GlobalKeyExampleTwo> {
             const SizedBox(height: 24),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                primary: Colors.grey[700],
+                backgroundColor: Colors.grey[700],
                 minimumSize: const Size.fromHeight(40),
               ),
+              onPressed: () => setState(() => isSignedIn = false),
               child: const FittedBox(
                 child: Text(
                   'Sign Out',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
-              onPressed: () => setState(() => isSignedIn = false),
             ),
           ],
         ),
