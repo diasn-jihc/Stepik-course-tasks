@@ -47,7 +47,7 @@ class _ListGridViewPageStorageKeyPageState
                 ),
               );
             default:
-              throw '404';
+              throw StateError('Unexpected page index: $index');
           }
         },
       ),
