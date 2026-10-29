@@ -7,7 +7,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  static const String title = 'Page Storage Key';
+  static const title = 'Page Storage Key';
 
   const MyApp({super.key});
 
