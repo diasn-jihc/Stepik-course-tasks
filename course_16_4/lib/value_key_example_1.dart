@@ -43,7 +43,6 @@ class ValueKeyExample1State extends State<ValueKeyExample1> {
                   style: const TextStyle(fontSize: 30)),
             ),
             ElevatedButton(
-              child: const Text("Нажми меня"),
               onPressed: () {
                 setState(() {
                   counter++;
@@ -54,6 +53,7 @@ class ValueKeyExample1State extends State<ValueKeyExample1> {
                 backgroundColor: Colors.grey,
                 textStyle: const TextStyle(fontSize: 20),
               ),
+              child: const Text("Нажми меня"),
             ),
           ],
         ),

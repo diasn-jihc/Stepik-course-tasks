@@ -4,7 +4,7 @@ import 'package:course_16_6/app_constants.dart';
 final bucketGlobal = PageStorageBucket();
 
 class PersistPageStorageKeyPage extends StatefulWidget {
-  const PersistPageStorageKeyPage({Key? key}) : super(key: key);
+  const PersistPageStorageKeyPage({super.key});
 
   @override
   State<PersistPageStorageKeyPage> createState() => _PersistPageStorageKeyPageState();
@@ -59,7 +59,7 @@ class _PersistPageStorageKeyPageState extends State<PersistPageStorageKeyPage> {
 }
 
 class _ListPage extends StatelessWidget {
-  const _ListPage({Key? key}) : super(key: key);
+  const _ListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +76,7 @@ class _ListPage extends StatelessWidget {
 }
 
 class _GridPage extends StatelessWidget {
-  const _GridPage({Key? key}) : super(key: key);
+  const _GridPage({super.key});
 
   @override
   Widget build(BuildContext context) {

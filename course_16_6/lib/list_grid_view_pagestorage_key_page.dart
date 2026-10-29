@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:course_16_6/app_constants.dart';
 
 class ListGridViewPageStorageKeyPage extends StatefulWidget {
-  const ListGridViewPageStorageKeyPage({Key? key}) : super(key: key);
+  const ListGridViewPageStorageKeyPage({super.key});
 
   @override
   State<ListGridViewPageStorageKeyPage> createState() =>
@@ -55,7 +55,7 @@ class _ListGridViewPageStorageKeyPageState
 }
 
 class _ListPage extends StatelessWidget {
-  const _ListPage({Key? key}) : super(key: key);
+  const _ListPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class _ListPage extends StatelessWidget {
 }
 
 class _GridPage extends StatelessWidget {
-  const _GridPage({Key? key}) : super(key: key);
+  const _GridPage({super.key});
 
   @override
   Widget build(BuildContext context) {

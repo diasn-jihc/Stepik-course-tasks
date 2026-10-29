@@ -8,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -42,7 +42,6 @@ class _MainPageState extends State<MainPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ElevatedButton(
-                child: const Text('List/Grid View PageStorage', style: TextStyle(fontSize: 19)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[700],
                   minimumSize: const Size.fromHeight(50),
@@ -50,11 +49,10 @@ class _MainPageState extends State<MainPage> {
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const ListGridViewPageStorageKeyPage(),
                 )),
+                child: const Text('List/Grid View PageStorage', style: TextStyle(fontSize: 19)),
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                child:
-                    const Text('List/Grid View Custom PageStorage', style: TextStyle(fontSize: 19)),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.grey[700],
                   minimumSize: const Size.fromHeight(50),
@@ -62,6 +60,7 @@ class _MainPageState extends State<MainPage> {
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const PersistPageStorageKeyPage(),
                 )),
+                child: const Text('List/Grid View Custom PageStorage', style: TextStyle(fontSize: 19)),
               ),
             ],
           ),
