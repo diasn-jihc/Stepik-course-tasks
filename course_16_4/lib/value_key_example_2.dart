@@ -8,7 +8,7 @@ class ValueKeyExample2 extends StatefulWidget {
 }
 
 class _ValueKeyExample2State extends State<ValueKeyExample2> {
-  bool showEmail = true;
+  bool _showEmail = true;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class _ValueKeyExample2State extends State<ValueKeyExample2> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (showEmail)
+            if (_showEmail)
               const TextField(
                 key: ValueKey(MyObject('email')),
                 decoration: InputDecoration(
@@ -54,7 +54,7 @@ class _ValueKeyExample2State extends State<ValueKeyExample2> {
         ),
         icon: const Icon(Icons.visibility_off),
         label: const Text('Remove Email'),
-        onPressed: () => setState(() => showEmail = false),
+        onPressed: () => setState(() => _showEmail = false),
       ),
     );
   }
