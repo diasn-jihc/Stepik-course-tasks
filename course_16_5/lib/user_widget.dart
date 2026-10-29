@@ -28,9 +28,9 @@ class _UserWidgetState extends State<UserWidget> {
 
     return Color.fromARGB(
       255,
-      random.nextInt(255),
-      random.nextInt(255),
-      random.nextInt(255),
+      random.nextInt(256),
+      random.nextInt(256),
+      random.nextInt(256),
     );
   }
 
