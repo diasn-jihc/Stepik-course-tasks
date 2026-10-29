@@ -81,14 +81,14 @@ class ColorWidget extends StatelessWidget {
 }
 
 class GenerateColor {
-  static final Random random = Random();
+  static final Random _random = Random();
 
   static Color getColor() {
     return Color.fromARGB(
       255,
-      random.nextInt(256),
-      random.nextInt(256),
-      random.nextInt(256),
+      _random.nextInt(256),
+      _random.nextInt(256),
+      _random.nextInt(256),
     );
   }
 }
