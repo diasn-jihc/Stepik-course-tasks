@@ -4,7 +4,7 @@ import 'helper.dart';
 final counterKey = GlobalKey<_CounterWidgetState>();
 
 class GlobalKeyExampleOne extends StatelessWidget {
-  const GlobalKeyExampleOne({Key? key}) : super(key: key);
+  const GlobalKeyExampleOne({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +21,9 @@ class GlobalKeyExampleOne extends StatelessWidget {
               key: counterKey,
             ),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.grey[700],
+              ),
               onPressed: () {
                 final counter = counterKey.currentState?.counter;
 
@@ -31,9 +34,6 @@ class GlobalKeyExampleOne extends StatelessWidget {
                     text: 'Counter: $counter -> $newCounter');
               },
               child: const Text('Add'),
-              style: ElevatedButton.styleFrom(
-                primary: Colors.grey[700],
-              ),
             ),
           ],
         ),
@@ -43,7 +43,7 @@ class GlobalKeyExampleOne extends StatelessWidget {
 }
 
 class CounterWidget extends StatefulWidget {
-  const CounterWidget({Key? key}) : super(key: key);
+  const CounterWidget({super.key});
 
   @override
   State<CounterWidget> createState() => _CounterWidgetState();
