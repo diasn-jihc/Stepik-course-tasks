@@ -50,11 +50,10 @@ class CounterWidget extends StatefulWidget {
 }
 
 class _CounterWidgetState extends State<CounterWidget> {
-  late int counter;
+  int counter = 0;
 
   @override
   void initState() {
-    counter = 0;
     super.initState();
   }
 
