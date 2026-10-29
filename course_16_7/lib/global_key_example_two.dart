@@ -10,7 +10,7 @@ class GlobalKeyExampleTwo extends StatefulWidget {
 }
 
 class _GlobalKeyExampleTwoState extends State<GlobalKeyExampleTwo> {
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   
   bool isSignedIn = false;
   String email = '';
@@ -26,7 +26,7 @@ class _GlobalKeyExampleTwoState extends State<GlobalKeyExampleTwo> {
       );
 
   Widget buildLogin() => Form(
-        key: formKey,
+        key: _formKey,
         child: ListView(
           padding: const EdgeInsets.all(24),
           children: <Widget>[
@@ -102,7 +102,7 @@ class _GlobalKeyExampleTwoState extends State<GlobalKeyExampleTwo> {
       );
 
   void submit() {
-    final form = formKey.currentState!;
+    final form = _formKey.currentState!;
     if (form.validate()) {
       form.save();
       log('Form valid: $email');
