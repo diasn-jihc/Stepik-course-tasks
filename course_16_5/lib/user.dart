@@ -16,7 +16,7 @@ class User {
           country == other.country;
 
   @override
-  int get hashCode => name.hashCode ^ country.hashCode;
+  int get hashCode => Object.hash(name, country);
 
   // FOR EXAMPLE
   // var user1 = User(name: 'User1', country: 'Country1');
