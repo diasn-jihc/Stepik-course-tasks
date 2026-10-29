@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:course_16_6/app_constants.dart';
 import 'package:course_16_6/list_grid_view_pagestorage_key_page.dart';
 import 'package:course_16_6/persist_pagestorage_key_page.dart';
 
@@ -8,12 +7,14 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  static const String title = 'Page Storage Key';
+
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: appTitle,
+      title: title,
       theme: ThemeData.dark(),
       home: const MainPage(),
     );
@@ -32,7 +33,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(appTitle),
+        title: const Text(MyApp.title),
         centerTitle: true,
       ),
       body: Center(

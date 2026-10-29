@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:course_16_6/app_constants.dart';
+
+const String _pageTitle = 'Page Storage Key';
 
 class ListGridViewPageStorageKeyPage extends StatefulWidget {
   const ListGridViewPageStorageKeyPage({super.key});
@@ -15,7 +16,7 @@ class _ListGridViewPageStorageKeyPageState
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(appTitle),
+        title: const Text(_pageTitle),
         centerTitle: true,
       ),
       body: PageView.builder(
