@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'helper.dart';
 
-final counterKey = GlobalKey<_CounterWidgetState>();
+final _counterKey = GlobalKey<_CounterWidgetState>();
 
 class GlobalKeyExampleOne extends StatelessWidget {
   const GlobalKeyExampleOne({super.key});
@@ -18,17 +18,17 @@ class GlobalKeyExampleOne extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CounterWidget(
-              key: counterKey,
+              key: _counterKey,
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.grey[700],
               ),
               onPressed: () {
-                final counter = counterKey.currentState?.counter;
+                final counter = _counterKey.currentState?.counter;
 
-                counterKey.currentState?.add();
-                final newCounter = counterKey.currentState?.counter;
+                _counterKey.currentState?.add();
+                final newCounter = _counterKey.currentState?.counter;
 
                 Utils.showSnackBar(context,
                     text: 'Counter: $counter -> $newCounter');
