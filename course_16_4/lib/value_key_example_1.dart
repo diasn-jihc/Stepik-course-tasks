@@ -1,0 +1,106 @@
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+
+class ValueKeyExample1 extends StatefulWidget {
+  const ValueKeyExample1({super.key});
+
+  @override
+  ValueKeyExample1State createState() => ValueKeyExample1State();
+}
+
+class ValueKeyExample1State extends State<ValueKeyExample1> {
+  late int counter;
+
+  @override
+  void initState() {
+    super.initState();
+    log('# ValueKeyExample1 init state');
+    counter = 0;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    log('ValueKeyExample1 - call method build(context)');
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('ValueKey Example 1'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            ScaleAnimated(
+              duration: const Duration(seconds: 2),
+              child: Text("Виджет без ключа: $counter",
+                  style: const TextStyle(fontSize: 30)),
+            ),
+            ScaleAnimated(
+              key: ValueKey(counter),
+              duration: const Duration(seconds: 2),
+              child: Text("Виджет с ключом: $counter",
+                  style: const TextStyle(fontSize: 30)),
+            ),
+            ElevatedButton(
+              child: const Text("Нажми меня"),
+              onPressed: () {
+                setState(() {
+                  counter++;
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                shape: const StadiumBorder(),
+                backgroundColor: Colors.grey,
+                textStyle: const TextStyle(fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ScaleAnimated extends StatefulWidget {
+  final Widget child;
+  final Duration duration;
+
+  const ScaleAnimated({super.key, required this.duration, required this.child});
+
+  @override
+  ScaleAnimatedState createState() => ScaleAnimatedState();
+}
+
+class ScaleAnimatedState extends State<ScaleAnimated>
+    with SingleTickerProviderStateMixin {
+  late final AnimationController _controller;
+  late final Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    log('# ScaleAnimated init state');
+    _controller = AnimationController(
+        vsync: this,
+        duration: widget.duration,
+        upperBound: 1.0,
+        lowerBound: 0.0);
+    _controller.forward();
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.linear);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _animation,
+      child: widget.child,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+}
