@@ -23,21 +23,21 @@ class _ValueKeyExample2State extends State<ValueKeyExample2> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             if (showEmail)
-               const TextField(
+              const TextField(
                 key: ValueKey(MyObject('email')),
-                decoration:  InputDecoration(
+                decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  icon:  Icon(Icons.email),
+                  icon: Icon(Icons.email),
                   labelText: 'Email',
                   labelStyle:
                       TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                 ),
               ),
-             const TextField(
+            const TextField(
               key: ValueKey(MyObject('username')),
-              decoration:  InputDecoration(
+              decoration: InputDecoration(
                 border: OutlineInputBorder(),
-                icon:  Icon(Icons.people),
+                icon: Icon(Icons.people),
                 labelText: 'Username',
                 labelStyle:
                     TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
