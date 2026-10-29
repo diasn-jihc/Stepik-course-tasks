@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 const String _pageTitle = 'Page Storage Key';
 
-final bucketGlobal = PageStorageBucket();
+final _bucketGlobal = PageStorageBucket();
 
 class PersistPageStorageKeyPage extends StatefulWidget {
   const PersistPageStorageKeyPage({super.key});
@@ -20,7 +20,7 @@ class _PersistPageStorageKeyPageState extends State<PersistPageStorageKeyPage> {
         centerTitle: true,
       ),
       body: PageStorage(
-        bucket: bucketGlobal,
+        bucket: _bucketGlobal,
         child: PageView.builder(
           itemCount: 3,
           itemBuilder: (context, index) {
@@ -50,7 +50,7 @@ class _PersistPageStorageKeyPageState extends State<PersistPageStorageKeyPage> {
                   ),
                 );
               default:
-                throw '404';
+                throw StateError('Unexpected page index: $index');
             }
           },
         ),
