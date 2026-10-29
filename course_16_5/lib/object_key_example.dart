@@ -11,7 +11,7 @@ class ObjectKeyPageExample extends StatefulWidget {
 }
 
 class _ObjectKeyPageExampleState extends State<ObjectKeyPageExample> {
-  late List<User> users;
+  late final List<User> users;
 
   final someUser = User(name: 'someUser', country: 'someCountry');
 
@@ -54,7 +54,7 @@ class _ObjectKeyPageExampleState extends State<ObjectKeyPageExample> {
       body: SingleChildScrollView(
         child: Column(
           children: users
-              .map<Widget>((user) => UserWidget(
+              .map((user) => UserWidget(
                     key: ObjectKey(user),
                     user: user,
                   ))
