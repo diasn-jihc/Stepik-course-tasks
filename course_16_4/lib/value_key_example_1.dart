@@ -10,13 +10,12 @@ class ValueKeyExample1 extends StatefulWidget {
 }
 
 class ValueKeyExample1State extends State<ValueKeyExample1> {
-  late int counter;
+  int counter = 0;
 
   @override
   void initState() {
     super.initState();
     log('# ValueKeyExample1 init state');
-    counter = 0;
   }
 
   @override
@@ -69,7 +68,7 @@ class ScaleAnimated extends StatefulWidget {
   const ScaleAnimated({super.key, required this.duration, required this.child});
 
   @override
-  ScaleAnimatedState createState() => ScaleAnimatedState();
+  State<ScaleAnimated> createState() => ScaleAnimatedState();
 }
 
 class ScaleAnimatedState extends State<ScaleAnimated>
