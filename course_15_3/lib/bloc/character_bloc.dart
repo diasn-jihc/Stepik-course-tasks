@@ -21,7 +21,6 @@ class CharacterBloc extends Bloc<CharacterEvent, CharacterState> with HydratedMi
         emit(CharacterState.loaded(characterLoaded: characterLoaded));
       } catch (_) {
         emit(const CharacterState.error());
-        rethrow;
       }
     });
   }
