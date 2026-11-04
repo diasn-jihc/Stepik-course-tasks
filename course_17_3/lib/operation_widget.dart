@@ -6,9 +6,11 @@ class OperationWidget extends StatefulWidget {
   final Operation operation;
   final Calculator calculator;
 
-  const OperationWidget(
-      {Key? key, required this.operation, required this.calculator})
-      : super(key: key);
+  const OperationWidget({
+    super.key,
+    required this.operation,
+    required this.calculator,
+  });
 
   @override
   State<OperationWidget> createState() => _OperationWidgetState();
