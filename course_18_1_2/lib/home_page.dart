@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:course_18_1/main.dart';
+import 'main.dart';
 
-// Stateful Consumer example from the lesson:
-//
 // class MyWidget extends ConsumerStatefulWidget {
 //   const MyWidget({super.key});
 //
@@ -14,15 +12,14 @@ import 'package:course_18_1/main.dart';
 // class _MyWidgetState extends ConsumerState<MyWidget> {
 //   @override
 //   void initState() {
-//     // Read the provider value when the widget initializes.
 //     super.initState();
-//     final name = ref.read(nameProvider);
+//     final user = ref.read(userProvider);
 //   }
 //
 //   @override
 //   Widget build(BuildContext context) {
-//     final name = ref.watch(nameProvider);
-//     return Text(name ?? '');
+//     final user = ref.watch(userProvider);
+//     return Text(user.name);
 //   }
 // }
 
@@ -30,19 +27,24 @@ class MyHomePage extends ConsumerWidget {
   const MyHomePage({super.key});
 
   void onSubmit(WidgetRef ref, String value) {
-    ref.read(nameProvider.notifier).update((state) => value);
+    ref.read(userProvider.notifier).updateName(value);
+  }
+
+  void onSubmitAge(WidgetRef ref, String value) {
+    ref.read(userProvider.notifier).updateAge(int.parse(value));
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final name = ref.watch(nameProvider) ?? '';
+    final user = ref.watch(userProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Title'), centerTitle: true),
+      appBar: AppBar(title: Text(user.name), centerTitle: true),
       body: Column(
         children: [
           TextField(onSubmitted: (value) => onSubmit(ref, value)),
-          Center(child: Text(name)),
+          TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
+          Center(child: Text(user.age.toString())),
         ],
       ),
     );
