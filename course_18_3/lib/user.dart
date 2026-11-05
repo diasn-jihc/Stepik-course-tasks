@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 @immutable
 class User {
@@ -40,9 +40,8 @@ class User {
   int get hashCode => name.hashCode ^ age.hashCode;
 }
 
-class UserNotifier extends Notifier<User> {
-  @override
-  User build() => const User(name: 'Иван', age: 20);
+class UserNotifier extends StateNotifier<User> {
+  UserNotifier(super.state);
 
   void updateName(String name) {
     state = state.copyWith(name: name);
@@ -52,5 +51,3 @@ class UserNotifier extends Notifier<User> {
     state = state.copyWith(age: age);
   }
 }
-
-final userProvider = NotifierProvider<UserNotifier, User>(UserNotifier.new);
