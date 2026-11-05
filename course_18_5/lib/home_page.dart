@@ -1,25 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'user.dart';
+import 'main.dart';
 
 // class MyWidget extends ConsumerStatefulWidget {
 //   const MyWidget({super.key});
-
+//
 //   @override
 //   ConsumerState<MyWidget> createState() => _MyWidgetState();
 // }
-
+//
 // class _MyWidgetState extends ConsumerState<MyWidget> {
-
 //   @override
 //   void initState() {
 //     super.initState();
-//     final name = ref.read(nameProvider);
+//     final user = ref.read(userProvider);
 //   }
+//
 //   @override
 //   Widget build(BuildContext context) {
-//     final name = ref.watch(nameProvider);
-//     return Text(name);
+//     final user = ref.watch(userProvider);
+//     return Text(user.name);
 //   }
 // }
 
@@ -31,8 +31,8 @@ class MyHomePage extends ConsumerWidget {
   }
 
   void onSubmitAge(WidgetRef ref, String value) {
-    final age = int.tryParse(value.trim());
-    if (age != null && age >= 0) {
+    final age = int.tryParse(value);
+    if (age != null) {
       ref.read(userChangeNotifierProvider).updateAge(age);
     }
   }
@@ -45,20 +45,21 @@ class MyHomePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(user.name),
         centerTitle: true,
-      ),
+      ), // AppBar
       body: Column(
         children: [
           TextField(
             onSubmitted: (value) => onSubmit(ref, value),
-          ),
+          ), // TextField
           TextField(
+            keyboardType: TextInputType.number,
             onSubmitted: (value) => onSubmitAge(ref, value),
-          ),
+          ), // TextField
           Center(
-            child: Text('Возраст: ${user.age}'),
-          ),
+            child: Text(user.age.toString()),
+          ), // Text
         ],
-      ),
-    );
+      ), // Column
+    ); // Scaffold
   }
 }

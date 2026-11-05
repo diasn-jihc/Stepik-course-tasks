@@ -1,6 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
+
+import 'user.dart';
 import 'home_page.dart';
+
+// Providers
+// Provider
+// StateProvider
+// StateNotifier & StateNotifierProvider
+// ChangeNotifierProvider
+final userProvider = StateNotifierProvider<UserNotifier, User>(
+  (ref) => UserNotifier(const User(name: '', age: 0)),
+);
+
+final userChangeNotifierProvider = ChangeNotifierProvider<UserNotifierChange>(
+  (ref) => UserNotifierChange(),
+);
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
