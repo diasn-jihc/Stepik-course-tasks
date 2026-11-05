@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:http/http.dart' as http;
 
 @immutable
 class User {
@@ -14,25 +15,26 @@ class User {
     required this.email,
   });
 
-  User copyWith({
-    String? name,
-    String? email,
-  }) {
+  User copyWith({String? name, String? email}) {
     return User(
       name: name ?? this.name,
       email: email ?? this.email,
     );
   }
 
-  Map<String, dynamic> toMap() => {
-        'name': name,
-        'email': email,
-      };
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'email': email,
+    };
+  }
 
-  factory User.fromMap(Map<String, dynamic> map) => User(
-        name: map['name'] as String,
-        email: map['email'] as String,
-      );
+  factory User.fromMap(Map<String, dynamic> map) {
+    return User(
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+    );
+  }
 
   String toJson() => json.encode(toMap());
 
@@ -43,47 +45,43 @@ class User {
   String toString() => 'User(name: $name, email: $email)';
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is User && other.name == name && other.email == email;
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is User && other.name == name && other.email == email;
+  }
 
   @override
   int get hashCode => name.hashCode ^ email.hashCode;
 }
 
-final userRepositoryProvider = Provider<UserRepository>((ref) {
-  return UserRepository();
-});
+// Provider
+final userRepositoryProvider = Provider((ref) => UserRepository());
 
-final fetchUserProvider = FutureProvider.autoDispose.family<User, String>((ref, userId) {
-  ref.keepAlive();
-  final userRepository = ref.watch(userRepositoryProvider);
-  return userRepository.fetchUserData(userId);
-});
-
-final streamProvider = StreamProvider<int>((ref) {
-  return Stream.periodic(
-    const Duration(seconds: 1),
-    (computationCount) => computationCount,
-  );
-});
-
+// Repository
 class UserRepository {
-  Future<User> fetchUserData(String userId) async {
+  Future<User> fetchUserData(String userId) {
     final url = 'https://jsonplaceholder.typicode.com/users/$userId';
-    final client = HttpClient();
-    try {
-      final request = await client.getUrl(Uri.parse(url));
-      final response = await request.close();
-      final body = await response.transform(utf8.decoder).join();
+    return http
+        .get(Uri.parse(url))
+        .then((value) => User.fromJson(value.body));
+  }
+}
 
-      if (response.statusCode != HttpStatus.ok) {
-        throw Exception('Failed to load user: ${response.statusCode}');
-      }
+// Previous lessons: StateNotifier & ChangeNotifier
+class UserNotifier extends StateNotifier<User> {
+  UserNotifier(super.state);
 
-      return User.fromJson(body);
-    } finally {
-      client.close();
-    }
+  void updateName(String name) {
+    state = state.copyWith(name: name);
+  }
+}
+
+class UserNotifierChange extends ChangeNotifier {
+  User user = const User(name: '', email: '');
+
+  void updateName(String name) {
+    user = user.copyWith(name: name);
+    notifyListeners();
   }
 }
