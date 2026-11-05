@@ -9,7 +9,7 @@ import 'home_page.dart';
 // StateProvider
 // StateNotifier & StateNotifierProvider
 final userProvider = StateNotifierProvider<UserNotifier, User>(
-  (ref) => UserNotifier(),
+  (ref) => UserNotifier(const User(name: '', age: 0)),
 );
 
 void main() {

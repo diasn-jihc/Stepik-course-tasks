@@ -30,21 +30,16 @@ class MyHomePage extends ConsumerWidget {
     ref.read(userProvider.notifier).updateName(value);
   }
 
-  void onSubmitAge(WidgetRef ref, String value) {
-    ref.read(userProvider.notifier).updateAge(int.parse(value));
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(userProvider);
 
     return Scaffold(
-      appBar: AppBar(title: Text(user.name), centerTitle: true),
+      appBar: AppBar(title: const Text('Title'), centerTitle: true),
       body: Column(
         children: [
           TextField(onSubmitted: (value) => onSubmit(ref, value)),
-          TextField(onSubmitted: (value) => onSubmitAge(ref, value)),
-          Center(child: Text(user.age.toString())),
+          Center(child: Text(user.name)),
         ],
       ),
     );
