@@ -48,7 +48,7 @@ class MyHomePage extends ConsumerWidget {
           content: Text(
             'Our age was ${previousState?.age} and the new age ${currentState.age}',
           ),
-        ), // Text // SnackBar
+        ),
       );
     });
 
@@ -56,21 +56,21 @@ class MyHomePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(userName),
         centerTitle: true,
-      ), // AppBar
+      ),
       body: Column(
         children: [
           TextField(
             onSubmitted: (value) => onSubmit(ref, value),
-          ), // TextField
+          ),
           TextField(
             keyboardType: TextInputType.number,
             onSubmitted: (value) => onSubmitAge(ref, value),
-          ), // TextField
+          ),
           Center(
             child: Text(userAge.toString()),
           ),
         ],
-      ), // Column
-    ); // Scaffold
+      ),
+    );
   }
 }

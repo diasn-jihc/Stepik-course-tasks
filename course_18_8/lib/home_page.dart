@@ -67,18 +67,18 @@ class MyHomePage extends ConsumerWidget {
             child: Text(
               data.toString(),
               style: const TextStyle(fontSize: 25),
-            ), // Text
-          ); // Center
+            ),
+          );
         },
         error: (error, stackTrace) {
           return Center(
             child: Text(error.toString()),
-          ); // Center
+          );
         },
         loading: () => const Center(
           child: CircularProgressIndicator(),
-        ), // Center
+        ),
       ),
-    ); // Scaffold
+    );
   }
 }

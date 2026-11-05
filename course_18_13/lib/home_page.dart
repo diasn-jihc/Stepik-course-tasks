@@ -42,7 +42,7 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
       appBar: AppBar(
         title: const Text(''),
         centerTitle: true,
-      ), // AppBar
+      ), 
       body: Column(
         children: [
           TextField(
@@ -57,24 +57,24 @@ class _MyHomePageState extends ConsumerState<MyHomePage> {
                 });
               }
             },
-          ), // TextField
+          ),
           user.when(
             data: (data) {
               return Center(
                 child: Text(data.name),
-              ); // Center
+              );
             },
             error: (error, stackTrace) {
               return Center(
                 child: Text(error.toString()),
-              ); // Center
+              );
             },
             loading: () => const Center(
               child: CircularProgressIndicator(),
-            ), // Center
-          ), // user.when
+            ),
+          ),
         ],
-      ), // Column
-    ); // Scaffold
+      ),
+    );
   }
 }

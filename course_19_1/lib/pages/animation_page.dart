@@ -6,7 +6,7 @@ class AnimationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: AnimationWidget()), // Center
+      body: Center(child: AnimationWidget()),
     );
   }
 }
@@ -62,7 +62,7 @@ class _MyContainer extends StatelessWidget {
     return Container(
       width: 100.0,
       height: 100.0,
-      decoration: BoxDecoration(color: Colors.orange), // BoxDecoration
+      decoration: BoxDecoration(color: Colors.orange),
     );
   }
 }

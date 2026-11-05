@@ -52,14 +52,14 @@ final fetchUserprovider =
 
   final userRepository = ref.watch(userRepositoryProvider);
   return userRepository.fetchUserData(userId);
-}); // FutureProvider.autoDispose.family
+});
 
 final streamProvider = StreamProvider<int>((ref) {
   return Stream.periodic(
     const Duration(seconds: 1),
     (count) => count,
   );
-}); // StreamProvider
+});
 
 void main() {
   runApp(

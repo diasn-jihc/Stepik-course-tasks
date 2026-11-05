@@ -37,26 +37,26 @@ class MyHomePage extends ConsumerWidget {
           appBar: AppBar(
             title: const Text(''),
             centerTitle: true,
-          ), // AppBar
+          ),
           body: Column(
             children: [
               Center(
                 child: Text(data.name),
-              ), // Center
+              ),
             ],
-          ), // Column
-        ); // Scaffold
+          ),
+        );
       },
       error: (error, stackTrace) {
         return Scaffold(
           body: Center(
             child: Text(error.toString()),
-          ), // Center
-        ); // Scaffold
+          ),
+        );
       },
       loading: () => const Center(
         child: CircularProgressIndicator(),
-      ), // Center
+      ),
     );
   }
 }

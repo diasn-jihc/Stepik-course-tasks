@@ -75,7 +75,7 @@ final streamProvider = StreamProvider<int>((ref) {
     const Duration(seconds: 1),
     (count) => count,
   );
-}); // StreamProvider
+});
 
 void main() {
   runApp(

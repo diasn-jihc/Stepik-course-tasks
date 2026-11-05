@@ -45,21 +45,21 @@ class MyHomePage extends ConsumerWidget {
       appBar: AppBar(
         title: Text(user.name),
         centerTitle: true,
-      ), // AppBar
+      ),
       body: Column(
         children: [
           TextField(
             onSubmitted: (value) => onSubmit(ref, value),
-          ), // TextField
+          ),
           TextField(
             keyboardType: TextInputType.number,
             onSubmitted: (value) => onSubmitAge(ref, value),
-          ), // TextField
+          ),
           Center(
             child: Text(user.age.toString()),
-          ), // Text
+          ),
         ],
-      ), // Column
-    ); // Scaffold
+      ),
+    );
   }
 }
