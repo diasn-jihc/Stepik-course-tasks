@@ -1,0 +1,40 @@
+
+import 'dart:convert';
+
+import 'package:course_13_full/core/error/exception.dart';
+import 'package:course_13_full/feature/data/models/person_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+abstract class PersonLocalDataSource {
+
+  Future<List<PersonModel>> getLastPersonsFromCache();
+  Future<void> personsToCache(List<PersonModel> persons);
+}
+const cachedPersonsListKey = 'CACHED_PERSONS_LIST';
+
+class PersonLocalDataSourceImpl implements PersonLocalDataSource {
+  final SharedPreferences sharedPreferences;
+
+  PersonLocalDataSourceImpl({required this.sharedPreferences});
+
+  @override
+  Future<List<PersonModel>> getLastPersonsFromCache() async {
+    final jsonPersonsList =
+        sharedPreferences.getStringList(cachedPersonsListKey);
+    if (jsonPersonsList != null && jsonPersonsList.isNotEmpty) {
+      return jsonPersonsList
+          .map((person) => PersonModel.fromJson(json.decode(person)))
+          .toList();
+    } else {
+      throw CacheException();
+    }
+  }
+
+  @override
+  Future<void> personsToCache(List<PersonModel> persons) async {
+    final List<String> jsonPersonsList =
+        persons.map((person) => json.encode(person.toJson())).toList();
+
+    await sharedPreferences.setStringList(cachedPersonsListKey, jsonPersonsList);
+  }
+}

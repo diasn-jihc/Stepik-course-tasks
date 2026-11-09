@@ -1,0 +1,45 @@
+import 'package:equatable/equatable.dart';
+import 'package:course_13_full/feature/domain/entities/person_entity.dart';
+
+abstract class PersonState extends Equatable {
+  const PersonState();
+
+  @override
+  List<Object> get props => [];
+}
+
+class PersonEmpty extends PersonState {
+  const PersonEmpty();
+  @override
+  List<Object> get props => [];
+}
+
+class PersonLoading extends PersonState {
+  final List<PersonEntity> oldPersonsList;
+  final bool isFirstFetch;
+
+  const PersonLoading(this.oldPersonsList, {this.isFirstFetch = false});
+
+  @override
+  List<Object> get props => [oldPersonsList, isFirstFetch];
+
+}
+
+class PersonLoaded extends PersonState {
+  final List<PersonEntity> personsList;
+
+  const PersonLoaded(this.personsList);
+
+  @override
+  List<Object> get props => [personsList];
+}
+
+class PersonError extends PersonState {
+  final String message;
+  final List<PersonEntity> oldPersonsList;
+
+  const PersonError({required this.message, this.oldPersonsList = const []});
+
+  @override
+  List<Object> get props => [message, oldPersonsList];
+}
