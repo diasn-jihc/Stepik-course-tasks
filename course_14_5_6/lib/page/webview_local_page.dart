@@ -33,6 +33,9 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
           onProgress: (progress) {
             if (mounted) setState(() => _progress = progress);
           },
+          onPageStarted: (_) {
+            if (mounted) setState(() => _loadError = null);
+          },
         ),
       )
       ..addJavaScriptChannel(
