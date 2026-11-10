@@ -62,8 +62,7 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
     // webview_flutter does not provide a Windows implementation. Showing a
     // clear message here avoids the MissingPluginException red screen when
     // this course project is launched with the Windows desktop target.
-    if (defaultTargetPlatform == TargetPlatform.windows ||
-        defaultTargetPlatform == TargetPlatform.linux) {
+    if (_isUnsupportedPlatform) {
       return Scaffold(
         appBar: AppBar(title: const Text('WebView Local')),
         body: const Center(
