@@ -12,6 +12,8 @@ class WebViewLocalPage extends StatefulWidget {
 
 class _WebViewLocalPageState extends State<WebViewLocalPage> {
   late final WebViewController _webController;
+  int _progress = 0;
+  String? _loadError;
 
   bool get _isUnsupportedPlatform =>
       defaultTargetPlatform == TargetPlatform.windows ||
