@@ -94,8 +94,22 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('WebView Local')),
-      body: WebViewWidget(controller: _webController),
+      appBar: AppBar(
+        title: const Text('WebView Local'),
+        actions: [
+          IconButton(
+            tooltip: 'Reload',
+            onPressed: _webController.reload,
+            icon: const Icon(Icons.replay),
+          ),
+        ],
+      ),
+      body: Column(
+        children: [
+          if (_progress < 100) LinearProgressIndicator(value: _progress / 100),
+          Expanded(child: WebViewWidget(controller: _webController)),
+        ],
+      ),
     );
   }
 
