@@ -36,6 +36,9 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
           onPageStarted: (_) {
             if (mounted) setState(() => _loadError = null);
           },
+          onWebResourceError: (error) {
+            if (mounted) setState(() => _loadError = error.description);
+          },
         ),
       )
       ..addJavaScriptChannel(
