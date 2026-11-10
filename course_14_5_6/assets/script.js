@@ -16,5 +16,6 @@ function resetPage() {
 
 function sendOK() {
     var changeColor = document.getElementById('bodyColor');
+    if (!changeColor) return;
     changeColor.setAttribute('style', 'background:black');
 }
