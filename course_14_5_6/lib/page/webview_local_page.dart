@@ -106,6 +106,16 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
       ),
       body: Column(
         children: [
+          if (_loadError != null)
+            MaterialBanner(
+              content: Text(_loadError!),
+              actions: [
+                TextButton(
+                  onPressed: _webController.reload,
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
           if (_progress < 100) LinearProgressIndicator(value: _progress / 100),
           Expanded(child: WebViewWidget(controller: _webController)),
         ],
