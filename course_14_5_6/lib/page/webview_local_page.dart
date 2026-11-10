@@ -13,6 +13,10 @@ class WebViewLocalPage extends StatefulWidget {
 class _WebViewLocalPageState extends State<WebViewLocalPage> {
   late final WebViewController _webController;
 
+  bool get _isUnsupportedPlatform =>
+      defaultTargetPlatform == TargetPlatform.windows ||
+      defaultTargetPlatform == TargetPlatform.linux;
+
   @override
   void initState() {
     super.initState();
