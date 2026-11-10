@@ -1,17 +1,17 @@
-# course_14_1
+# Course 14.5.6 вЂ” Local WebView
 
-A new Flutter project.
+This Flutter lesson loads assets/index.html in a WebView and connects JavaScript to Flutter with MyJSChannel.
 
-## Getting Started
+## Run
 
-This project is a starting point for a Flutter application.
+1. Select an Android emulator or an Android/iOS device in VS Code.
+2. Run flutter pub get from this folder.
+3. Start the app with flutter run.
 
-A few resources to get you started if this is your first Flutter project:
+The webview_flutter implementation used in this lesson does not support Windows or Linux desktop. Those targets display a short platform message instead of opening a WebView.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Local page interactions
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Change color changes the page background and sends a message to Flutter.
+- Reset restores the dark background.
+- The Flutter app displays WebView load progress and offers retry after a resource error.
