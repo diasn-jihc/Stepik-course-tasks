@@ -28,6 +28,13 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
 
     _webController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (progress) {
+            if (mounted) setState(() => _progress = progress);
+          },
+        ),
+      )
       ..addJavaScriptChannel(
         'MyJSChannel',
         onMessageReceived: (message) async {
