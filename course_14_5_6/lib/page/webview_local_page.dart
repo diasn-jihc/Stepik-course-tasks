@@ -108,7 +108,7 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
         children: [
           if (_loadError != null)
             MaterialBanner(
-              content: Text(_loadError!),
+              content: Text('Could not load the local page: $_loadError'),
               actions: [
                 TextButton(
                   onPressed: _webController.reload,
