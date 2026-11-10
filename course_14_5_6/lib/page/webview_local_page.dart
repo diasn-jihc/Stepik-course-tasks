@@ -22,10 +22,7 @@ class _WebViewLocalPageState extends State<WebViewLocalPage> {
     super.initState();
     // Do not call the platform channel on desktop targets where the plugin
     // has no implementation.
-    if (defaultTargetPlatform == TargetPlatform.windows ||
-        defaultTargetPlatform == TargetPlatform.linux) {
-      return;
-    }
+    if (_isUnsupportedPlatform) return;
 
     _webController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
