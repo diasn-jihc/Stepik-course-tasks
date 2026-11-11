@@ -1,0 +1,66 @@
+﻿import 'package:flutter/material.dart';
+import 'helper.dart';
+
+final _counterKey = GlobalKey<_CounterWidgetState>();
+
+class GlobalKeyExampleOne extends StatelessWidget {
+  const GlobalKeyExampleOne({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Пример GlobalKey 1'),
+        centerTitle: true,
+      ),
+      body: SizedBox.expand(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CounterWidget(
+              key: _counterKey,
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: const Color(0xFF168B7E),
+              ),
+              onPressed: () {
+                final counter = _counterKey.currentState?.counter;
+
+                _counterKey.currentState?.add();
+                final newCounter = _counterKey.currentState?.counter;
+
+                Utils.showSnackBar(context,
+                    text: 'Counter: $counter -> $newCounter');
+              },
+              child: const Text('Добавить'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class CounterWidget extends StatefulWidget {
+  const CounterWidget({super.key});
+
+  @override
+  State<CounterWidget> createState() => _CounterWidgetState();
+}
+
+class _CounterWidgetState extends State<CounterWidget> {
+  int counter = 0;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void add() => setState(() => counter += 10);
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('$counter', style: const TextStyle(fontSize: 32));
+  }
+}
