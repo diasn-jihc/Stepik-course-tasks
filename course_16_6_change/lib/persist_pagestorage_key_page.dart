@@ -1,0 +1,99 @@
+﻿import 'package:flutter/material.dart';
+
+const String _pageTitle = 'Сохранение состояния страницы';
+
+final _bucketGlobal = PageStorageBucket();
+
+class PersistPageStorageKeyPage extends StatefulWidget {
+  const PersistPageStorageKeyPage({super.key});
+
+  @override
+  State<PersistPageStorageKeyPage> createState() => _PersistPageStorageKeyPageState();
+}
+
+class _PersistPageStorageKeyPageState extends State<PersistPageStorageKeyPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(_pageTitle),
+        centerTitle: true,
+      ),
+      body: PageStorage(
+        bucket: _bucketGlobal,
+        child: PageView.builder(
+          itemCount: 3,
+          itemBuilder: (context, index) {
+            switch (index) {
+              case 0:
+                return Container(
+                  color: const Color(0xFF124E4A),
+                  child: const _ListPage(
+                    key: PageStorageKey('FirstPage'),
+                  ),
+                );
+              case 1:
+                return Container(
+                  color: const Color(0xFF142522),
+                  child: const Center(
+                    child: Text(
+                      'Пустая страница',
+                      style: TextStyle(fontSize: 50),
+                    ),
+                  ),
+                );
+              case 2:
+                return Container(
+                  color: const Color(0xFF124E4A),
+                  child: const _GridPage(
+                    key: PageStorageKey('ThirdPage'),
+                  ),
+                );
+              default:
+                throw StateError('Unexpected page index: $index');
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _ListPage extends StatelessWidget {
+  const _ListPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: 100,
+      itemBuilder: (context, int index) {
+        return Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Text('Элемент — ${index + 1}', style: const TextStyle(fontSize: 30)),
+        );
+      },
+    );
+  }
+}
+
+class _GridPage extends StatelessWidget {
+  const _GridPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      itemCount: 100,
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemBuilder: (context, index) => GridTile(
+        child: Center(
+          child: Text(
+            'Grid item ${index + 1}',
+            style: const TextStyle(fontSize: 24),
+          ),
+        ),
+      ),
+    );
+  }
+}
