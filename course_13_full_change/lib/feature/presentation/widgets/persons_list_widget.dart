@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:course_13_full/common/app_colors.dart';
 import 'package:course_13_full/feature/domain/entities/person_entity.dart';
 import 'package:course_13_full/feature/presentation/bloc/person_list_cubit/person_list_cubit.dart';
 import 'package:course_13_full/feature/presentation/bloc/person_list_cubit/person_list_state.dart';
@@ -54,9 +55,9 @@ class _PersonsListState extends State<PersonsList> {
         return Center(child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-            const Icon(Icons.cloud_off_rounded, size: 42, color: Colors.white54),
+            const Icon(Icons.cloud_off_rounded, size: 42, color: AppColors.greyColor),
             const SizedBox(height: 12),
-            Text(state.message, textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 16)),
+            Text(state.message, textAlign: TextAlign.center, style: const TextStyle(color: AppColors.textPrimary, fontSize: 16)),
             const SizedBox(height: 12),
             FilledButton.icon(onPressed: () => context.read<PersonListCubit>().loadPerson(), icon: const Icon(Icons.refresh), label: const Text('Try again')),
           ]),

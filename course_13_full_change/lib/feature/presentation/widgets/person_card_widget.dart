@@ -11,7 +11,7 @@ class PersonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusColor = person.status == 'Alive' ? AppColors.accent : Colors.redAccent;
+    final statusColor = person.status == 'Alive' ? AppColors.alive : Colors.redAccent;
     return Material(
       color: AppColors.cellBackground,
       borderRadius: BorderRadius.circular(18),
@@ -32,7 +32,7 @@ class PersonCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(person.name, maxLines: 2, overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(fontSize: 17, color: Colors.white, fontWeight: FontWeight.w700)),
+                      style: const TextStyle(fontSize: 17, color: AppColors.textPrimary, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 7),
                     Row(children: [
                       Container(width: 8, height: 8, decoration: BoxDecoration(color: statusColor, shape: BoxShape.circle)),
@@ -44,12 +44,12 @@ class PersonCard extends StatelessWidget {
                     const Text('LAST KNOWN LOCATION', style: TextStyle(color: AppColors.greyColor, fontSize: 9, letterSpacing: .8, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 3),
                     Text(person.location.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: Colors.white, fontSize: 12)),
+                      style: const TextStyle(color: AppColors.textPrimary, fontSize: 12)),
                     const SizedBox(height: 9),
                     const Text('ORIGIN', style: TextStyle(color: AppColors.greyColor, fontSize: 9, letterSpacing: .8, fontWeight: FontWeight.w700)),
                     const SizedBox(height: 3),
                     Text(person.origin.name, maxLines: 1, overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(color: Colors.white, fontSize: 12)),
+                      style: const TextStyle(color: AppColors.textPrimary, fontSize: 12)),
                   ],
                 ),
               ),

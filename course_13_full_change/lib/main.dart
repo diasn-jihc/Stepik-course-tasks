@@ -28,8 +28,8 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData.dark().copyWith(
-          colorScheme: const ColorScheme.dark(
+        theme: ThemeData.light().copyWith(
+          colorScheme: const ColorScheme.light(
             primary: AppColors.accent,
             secondary: AppColors.highlight,
             surface: AppColors.cellBackground,
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.mainBackground,
           appBarTheme: const AppBarTheme(
             backgroundColor: AppColors.mainBackground,
-            foregroundColor: Colors.white,
+            foregroundColor: AppColors.textPrimary,
             elevation: 0,
             centerTitle: false,
           ),
@@ -47,6 +47,7 @@ class MyApp extends StatelessWidget {
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
           ),
           progressIndicatorTheme: const ProgressIndicatorThemeData(color: AppColors.accent),
+          dividerColor: const Color(0xFFEDE4DA),
         ),
         home: const HomePage(),
       ),

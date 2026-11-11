@@ -10,7 +10,7 @@ class PersonDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final statusColor = person.status == 'Alive' ? AppColors.accent : Colors.redAccent;
+    final statusColor = person.status == 'Alive' ? AppColors.alive : Colors.redAccent;
     return Scaffold(
       appBar: AppBar(title: const Text('Character profile', style: TextStyle(fontWeight: FontWeight.w700))),
       body: SingleChildScrollView(
@@ -21,7 +21,7 @@ class PersonDetailPage extends StatelessWidget {
             child: PersonCacheImage(width: 280, height: 280, imageUrl: person.image),
           )),
           const SizedBox(height: 22),
-          Text(person.name, textAlign: TextAlign.center, style: const TextStyle(fontSize: 28, color: Colors.white, fontWeight: FontWeight.w800)),
+          Text(person.name, textAlign: TextAlign.center, style: const TextStyle(fontSize: 28, color: AppColors.textPrimary, fontWeight: FontWeight.w800)),
           const SizedBox(height: 10),
           Center(child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
@@ -54,7 +54,7 @@ class PersonDetailPage extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(label, style: const TextStyle(color: AppColors.greyColor, fontSize: 11, fontWeight: FontWeight.w600)),
         const SizedBox(height: 4),
-        Text(value, style: const TextStyle(color: Colors.white, fontSize: 14)),
+        Text(value, style: const TextStyle(color: AppColors.textPrimary, fontSize: 14)),
       ]),
     );
   }
