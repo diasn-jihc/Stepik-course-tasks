@@ -1,0 +1,23 @@
+#bodyColor {
+    min-height: 100vh;
+    margin: 0;
+    padding: 24px;
+    box-sizing: border-box;
+    background: #0b1715;
+    color: #e8f4f1;
+    font-family: Arial, sans-serif;
+}
+.action-button {
+    min-width: 160px;
+    min-height: 44px;
+    margin: 8px 8px 8px 0;
+    border: 0;
+    border-radius: 12px;
+    background: #168b7e;
+    color: #f5fffd;
+    font-size: 16px;
+    font-weight: 600;
+}
+.action-button:active {
+    background: #43c6ac;
+}
