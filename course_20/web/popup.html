@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Neon QR</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <main class="card">
+    <header class="head">
+      <span class="logo">▣</span>
+      <h1>Neon<span>QR</span></h1>
+    </header>
+
+    <label class="field">
+      <span class="label">QR мәтіні</span>
+      <textarea id="text" rows="3" placeholder="Мәтін немесе сілтеме енгізіңіз"></textarea>
+    </label>
+
+    <div class="row">
+      <button id="useTab" class="btn ghost" type="button">Ағымдағы бет</button>
+      <button id="clear" class="btn ghost" type="button">Тазалау</button>
+      <select id="ecc" class="select" title="Қатені түзету деңгейі">
+        <option value="L">L</option>
+        <option value="M" selected>M</option>
+        <option value="Q">Q</option>
+        <option value="H">H</option>
+      </select>
+    </div>
+
+    <section class="qr-wrap">
+      <div class="plate">
+        <canvas id="canvas" width="240" height="240"></canvas>
+        <p id="placeholder" class="placeholder">QR осында шығады</p>
+      </div>
+    </section>
+
+    <p id="status" class="status" role="status"></p>
+
+    <div class="row">
+      <button id="copy" class="btn primary" type="button">Көшіру</button>
+      <button id="download" class="btn primary" type="button">PNG жүктеу</button>
+    </div>
+  </main>
+
+  <script src="qr.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

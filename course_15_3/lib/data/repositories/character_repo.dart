@@ -8,12 +8,21 @@ class CharacterRepo {
 
   Future<Character> getCharacter(int page, String name) async {
     try {
-      var response = await http.get(Uri.parse('$url?page=$page&name=$name'));
+      final response = await http.get(Uri.parse(url).replace(
+        queryParameters: {
+          'page': page.toString(),
+          if (name.trim().isNotEmpty) 'name': name.trim(),
+        },
+      ));
 
-      var jsonResult = json.decode(response.body);
+      if (response.statusCode != 200) {
+        throw Exception('Character request failed (${response.statusCode})');
+      }
+
+      final jsonResult = json.decode(response.body) as Map<String, dynamic>;
       return Character.fromJson(jsonResult);
-    } catch (e) {
-      throw Exception(e.toString());
+    } on FormatException catch (error) {
+      throw Exception('Invalid character response: $error');
     }
   }
 }

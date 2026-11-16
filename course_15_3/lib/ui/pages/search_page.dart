@@ -28,11 +28,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();
-    if (context.read<CharacterBloc>().state is CharacterStateLoading) {
-      context
-          .read<CharacterBloc>()
-          .add(CharacterEvent.fetch(name: '', page: _currentPage));
-    }
+    context
+        .read<CharacterBloc>()
+        .add(CharacterEvent.fetch(name: '', page: _currentPage));
   }
 
   @override
@@ -61,15 +59,17 @@ class _SearchPageState extends State<SearchPage> {
               hintStyle: const TextStyle(color: Colors.white),
             ),
             onChanged: (value) {
+              refreshController.resetNoData();
               _currentPage = 1;
               _currentResults = [];
               _currentSearchStr = value;
 
               searchDebounce?.cancel();
               searchDebounce = Timer(const Duration(milliseconds: 500), () {
+                if (!mounted) return;
                 context
                     .read<CharacterBloc>()
-                    .add(CharacterEvent.fetch(name: value, page: _currentPage));
+                    .add(CharacterEvent.fetch(name: _currentSearchStr, page: 1));
               });
             },
           ),
@@ -105,11 +105,24 @@ class _SearchPageState extends State<SearchPage> {
                   ? _customListView(_currentResults)
                   : const SizedBox();
             },
-            error: () => const Text('Nothing found...'),
+            error: () {
+              if (_isPagination) {
+                _isPagination = false;
+                refreshController.loadFailed();
+              }
+              return const Text('Nothing found...');
+            },
           ),
         ),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    searchDebounce?.cancel();
+    refreshController.dispose();
+    super.dispose();
   }
 
   Widget _customListView(List<Results> currentResults) {

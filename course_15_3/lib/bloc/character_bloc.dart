@@ -8,7 +8,7 @@ part 'character_bloc.g.dart';
 part 'character_event.dart';
 part 'character_state.dart';
 
-class CharacterBloc extends Bloc<CharacterEvent, CharacterState> with HydratedMixin {
+class CharacterBloc extends HydratedBloc<CharacterEvent, CharacterState> {
   final CharacterRepo characterRepo;
   CharacterBloc({required this.characterRepo})
       : super(const CharacterState.loading()) {
